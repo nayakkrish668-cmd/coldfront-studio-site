@@ -269,6 +269,14 @@ body.no-announce .announce{transform:translateY(-100%)}
 .plan li svg{flex:none;width:16px;margin-top:2px;stroke:var(--accent)}
 .plan .btn{margin-top:auto;width:100%}
 .ph-note{max-width:1180px;margin:22px auto 0;font-size:12.5px;color:#6f6f80}
+.addons{max-width:1180px;margin:48px auto 0}
+.addons h3{font-size:15px;font-weight:500;letter-spacing:-.01em;color:var(--muted);text-transform:uppercase;font-size:12px;letter-spacing:.08em;margin-bottom:18px}
+.addons__grid{display:grid;grid-template-columns:repeat(4,1fr);gap:14px}
+.addon{border:1px solid var(--border);border-radius:8px;padding:22px 20px;background:var(--surface)}
+.addon h4{font-size:15px;font-weight:500;letter-spacing:-.02em;margin-bottom:8px}
+.addon p{font-size:13px;line-height:1.5;color:var(--muted)}
+@media (max-width:860px){.addons__grid{grid-template-columns:1fr 1fr}}
+@media (max-width:560px){.addons__grid{grid-template-columns:1fr}}
 
 
 /* who it is for */
@@ -597,6 +605,15 @@ body.no-announce .announce{transform:translateY(-100%)}
     <div class="guarantee__t"><div class="guarantee__ic"><svg viewBox="0 0 20 20" fill="none" stroke-width="2" stroke-linecap="round"><path d="M10 2a7 7 0 0 1 7 7v3a3 3 0 0 1-3 3h-1v-7h4a7 7 0 0 0-14 0h4v7H6a3 3 0 0 1-3-3v-3a7 7 0 0 1 7-7z"/></svg></div>
       <div><b>Add-on: AI Voice Receptionist &mdash; $349/mo</b><span>A real AI voice agent answers the call live and books the job &mdash; stacks on any package above. $450&ndash;650 one-time setup.</span></div></div>
     <a href="#mockup" class="btn btn--white">Add to my plan</a>
+  </div>
+  <div class="addons rv">
+    <h3>Other add-ons, available once you're a client</h3>
+    <div class="addons__grid">
+      <div class="addon"><h4>After-hours FAQ bot</h4><p>The same AI text system answers common questions &mdash; pricing ranges, service area, hours &mdash; any time you're closed.</p></div>
+      <div class="addon"><h4>Website refresh retainer</h4><p>Monthly updates to your site: new photos, new reviews, seasonal promos, kept current without lifting a finger.</p></div>
+      <div class="addon"><h4>Google Business Profile optimization</h4><p>Photos, posts, Q&amp;A and categories tuned up so your profile shows up and converts.</p></div>
+      <div class="addon"><h4>Local SEO basics</h4><p>Directory and citation cleanup across the web so your business name, address and phone stay consistent everywhere.</p></div>
+    </div>
   </div>
 </section>
 
