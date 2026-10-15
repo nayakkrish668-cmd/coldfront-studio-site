@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+Disallow: /demos/
+Sitemap: https://coldfront-studio.vercel.app/sitemap.xml

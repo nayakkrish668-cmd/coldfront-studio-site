@@ -15,8 +15,17 @@
   "areaServed": "US"
 }
 </script>
+<link rel="canonical" href="https://coldfront-studio.vercel.app/">
+<meta property="og:title" content="ColdFront Studio | Missed-Call Recovery &amp; Website Design">
+<meta property="og:description" content="Explore three website styles for your trade and see how missed-call recovery works. Request a free personalized mockup.">
+<meta property="og:url" content="https://coldfront-studio.vercel.app/">
+<meta property="og:type" content="website">
+<meta name="theme-color" content="#0A0A0F">
+<link rel="icon" href="/favicon.svg" type="image/svg+xml">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter+Tight:wght@300;400;500;600&amp;display=swap" rel="stylesheet">
 <style>
-@import url('https://fonts.googleapis.com/css2?family=Inter+Tight:wght@300;400;500;600&family=Cormorant+Garamond:wght@400;500;600&family=Archivo:wght@500;800;900&display=swap');
 
 :root{
   --bg:#0A0A0F; --surface:#111118; --surface-2:#17171f; --border:#23232d;
@@ -28,7 +37,7 @@
   --gutter:40px; --bar-h:48px; --nav-h:80px;
 }
 *{box-sizing:border-box;margin:0;padding:0}
-html{scroll-behavior:smooth;-webkit-text-size-adjust:100%;scroll-padding-top:100px}
+html{scroll-behavior:smooth;-webkit-text-size-adjust:100%;scroll-padding-top:var(--anchor-offset,144px)}
 body{font-family:var(--font);color:#000;background:#fff;font-size:15px;letter-spacing:-.001em;line-height:1.45;-webkit-font-smoothing:antialiased;overflow-x:hidden}
 a{color:inherit;text-decoration:none}
 button{font:inherit;color:inherit;background:none;border:0;cursor:pointer}
@@ -230,15 +239,16 @@ body.no-announce .announce{transform:translateY(-100%)}
 .numbox a{display:block;font-size:clamp(26px,3vw,40px);letter-spacing:-.05em;font-weight:300;margin-top:6px}
 .numbox span{font-size:12.5px;color:#aab0d0}
 .dpills{display:flex;gap:6px;flex-wrap:wrap;margin-top:28px}
-.dpills .pill{height:40px;padding:0 16px;border:1px solid rgba(255,255,255,.22);border-radius:100px;font-size:14px;transition:background .3s,color .3s}
+.dpills .pill{min-height:44px;padding:8px 16px;border:1px solid rgba(255,255,255,.22);border-radius:100px;font-size:14px;transition:background .3s,color .3s}
 .dpills .pill:hover{background:rgba(255,255,255,.1)}
 .dpills .pill[aria-selected="true"]{background:#fff;color:#000;border-color:#fff}
 .phone{width:min(360px,100%);margin:0 auto;border-radius:34px;background:#000;border:1px solid #333;padding:14px;box-shadow:0 50px 120px rgba(0,0,0,.55)}
 .phone__screen{background:#f3f3f6;color:#111;border-radius:22px;height:560px;display:flex;flex-direction:column;overflow:hidden}
 .phone__bar{padding:18px 16px 12px;border-bottom:1px solid #e0e0e6;text-align:center;background:#fafafc}
 .phone__bar b{display:block;font-size:14px;font-weight:600}.phone__bar span{font-size:11px;color:#777}
-.phone__body{flex:1;overflow:hidden;padding:14px;display:flex;flex-direction:column;gap:9px;justify-content:flex-end}
+.phone__body{flex:1;min-height:0;overflow-y:auto;overscroll-behavior:contain;padding:14px;display:flex;flex-direction:column;gap:9px}
 .phone__body .sys{align-self:center;font-size:11px;color:#9a1d1d;background:#fde7e7;padding:6px 12px;border-radius:99px;font-weight:500}
+.phone__body>*{flex-shrink:0}
 .phone__body .msg{opacity:1;transform:none;animation:none;font-size:13.5px}
 .phone__body .msg.new{animation:pop .45s var(--ease) both;opacity:0}
 .typing{align-self:flex-start;display:flex;gap:4px;background:#e3e3e8;border-radius:18px;padding:12px 14px;border-bottom-left-radius:5px}
@@ -338,7 +348,7 @@ body.no-announce .announce{transform:translateY(-100%)}
 .final .call{display:inline-block;margin-top:28px;font-size:clamp(26px,3vw,40px);letter-spacing:-.05em;font-weight:300;border-bottom:1px solid rgba(255,255,255,.3)}
 .form{display:grid;gap:12px;background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.14);border-radius:8px;padding:28px}
 .form label{display:grid;gap:6px;font-size:12px;color:#aab0d0;letter-spacing:.04em;text-transform:uppercase}
-.form input,.form select{height:52px;border-radius:4px;border:1px solid #2c2c3a;background:#0e0e15;color:#fff;padding:0 14px;font:inherit;font-size:15px;text-transform:none;letter-spacing:0}
+.form input,.form select{height:52px;border-radius:4px;border:1px solid #2c2c3a;background:#0e0e15;color:#fff;padding:0 14px;font:inherit;font-size:16px;text-transform:none;letter-spacing:0}
 .form input:focus,.form select:focus{outline:2px solid var(--accent);outline-offset:1px}
 .form .btn{margin-top:6px}
 .form__msg{font-size:13px;color:#aab0d0;min-height:18px}
@@ -399,9 +409,53 @@ body.no-announce .announce{transform:translateY(-100%)}
   .hero h1 em{transform:none}
   .rings{display:none}
 }
+
+/* Audit fixes: keyboard access, readable controls, and stable mobile overlays. */
+.skip-link{position:fixed;top:8px;left:8px;z-index:100;background:#fff;color:#000;padding:12px 18px;border-radius:4px;transform:translateY(-150%)}
+.skip-link:focus{transform:none}
+.nav.is-light .nav__right>.btn{background:#000;color:#fff}
+body.menu-open .mbar{transform:translateY(110%);visibility:hidden}
+body.menu-open .nav{background:var(--bg);color:#fff}
+.phone__foot button{min-width:60px;min-height:44px}
+.sdots button,.dots button{display:grid;place-items:center;min-width:44px;min-height:44px;border-radius:50%}
+.sdots button::after,.dots button::after{content:"";width:7px;height:7px;background:#b3b3b3;border-radius:99px;transition:width .25s,background .25s}
+.sdots button.on::after,.dots button.on::after{width:26px;background:#111}
+.sdots{gap:0}.dots{gap:0}
+.live .preview-loading{position:absolute;inset:0;display:grid;place-items:center;background:#eee;color:#555;font-size:13px}
+.live.ready .preview-loading{display:none}
+.style-actions{display:flex;flex-wrap:wrap;gap:8px;margin-top:auto}
+.style-use{border:1px solid #aaa;color:#111}
+.field-error{color:#ffb4b4;font-size:13px}.field-error:empty{display:none}
+.field-help,.style-choice{font-size:13px;color:#b9bdd2;line-height:1.5}
+.style-choice:empty{display:none}
+.form__fallback{margin-top:8px;display:grid;gap:8px}
+.form__fallback[hidden]{display:none}
+.form__fallback textarea{width:100%;min-height:150px;background:#0e0e15;border:1px solid #555;border-radius:4px;color:#fff;font:inherit;padding:12px}
+.final__inner>*{min-width:0}.form input,.form select{width:100%;min-width:0}.foot__grid>*{min-width:0}
+.ph-note,.sim{color:#a2a2b5}.tcardsel span,.tcardsel .num,.tl__step small{color:#656565}
+.style p{color:#595959}
+.demo-notice{max-width:520px;margin:12px auto 0;color:#656565;font-size:13px;line-height:1.5}
+@media(max-width:768px){
+  body{font-size:16px}
+  .trade,.platform,.fit,.next,.final{padding-bottom:80px}
+  .trade,.next,.final{padding-top:80px}
+  .demo__inner{margin-top:64px}
+  .dpills .pill{font-size:14px}
+  .nav__right{gap:6px}
+  .style .btn{font-size:12px;padding:0 14px}
+  .carousel-ctrl{flex-wrap:wrap;gap:8px}.ctrl-spacer{display:none}.arrows{margin-left:auto}.dots{order:2;width:100%;justify-content:center}
+  .form{padding:22px}.foot__base{overflow-wrap:anywhere}
+  .fit__inner{gap:28px}
+  .foot__grid{gap:24px}
+  .guarantee__t{align-items:flex-start}
+  .phone__bar,.phone__foot{flex-shrink:0}
+}
+@media(max-width:360px){.logo{font-size:16px;gap:6px}.callbtn{width:44px;height:44px}.burger{width:44px}.sdots span{font-size:11px}}
+
 </style>
 </head>
 <body>
+<a class="skip-link" href="#top">Skip to content</a>
 
 <div class="announce" id="announce" role="region" aria-label="Offer">
   <span><b>Free mockup:</b> see your business website built with your name, logo and photos.</span>
@@ -414,7 +468,7 @@ body.no-announce .announce{transform:translateY(-100%)}
     ColdFront Studio
   </a>
   <nav class="nav__links" aria-label="Primary">
-    <a href="#trade">Your trade</a><a href="#how">How it works</a><a href="#demo">Live demo</a><a href="#pricing">Pricing</a><a href="#faq">FAQ</a>
+    <a href="#trade">Your trade</a><a href="#how">How it works</a><a href="#demo">How it texts back</a><a href="#pricing">Pricing</a><a href="#faq">FAQ</a>
   </nav>
   <div class="nav__right">
     <a href="tel:+17068082127" class="phone-link">(706) 808-2127</a>
@@ -424,18 +478,18 @@ body.no-announce .announce{transform:translateY(-100%)}
   </div>
 </header>
 
-<div class="menu" id="menu" aria-hidden="true">
+<div class="menu" id="menu" aria-hidden="true" inert>
   <ul>
     <li><a href="#trade">Your trade</a></li>
     <li><a href="#how">How it works</a></li>
-    <li><a href="#demo">Live demo</a></li>
+    <li><a href="#demo">How it texts back</a></li>
     <li><a href="#pricing">Pricing</a></li>
     <li><a href="#faq">FAQ</a></li>
   </ul>
   <div class="menu__foot"><a class="btn btn--white" href="#mockup">Get free mockup</a><a class="btn btn--ghost" href="tel:+17068082127">Call now</a></div>
 </div>
 
-<main id="top">
+<main id="top" tabindex="-1">
 
 <!-- HERO — niche-agnostic -->
 <section class="hero" id="hero" data-nav="dark">
@@ -446,7 +500,7 @@ body.no-announce .announce{transform:translateY(-100%)}
     <p class="hero__sub">When you can't pick up, we text the customer back in seconds and an AI books the job for you.</p>
     <div class="hero__cta">
       <a class="btn btn--white" href="#mockup">Get free mockup</a>
-      <a class="btn btn--ghost" href="#demo">See it text back</a>
+      <a class="btn btn--ghost" href="#demo">See sample conversation</a>
     </div>
     <p class="hero__note">Demo line: <a href="tel:+17068082127">(706) 808-2127</a>. Text-back demo pending carrier registration.</p>
   </div>
@@ -479,11 +533,12 @@ body.no-announce .announce{transform:translateY(-100%)}
 <section class="trade" id="trade" data-nav="light">
   <h2 id="tradeText">What's your trade?</h2>
   <p class="trade__sub">Pick yours. Explore website styles we've already built for businesses like it.</p>
+  <p class="demo-notice">Design demos use sample business details and content. Your website will use your own branding.</p>
   <div class="tsel" id="tsel" role="tablist" aria-label="Choose your trade"></div>
-  <div class="tpanel" id="tpanel" role="tabpanel">
+  <div class="tpanel" id="tpanel" role="tabpanel" aria-labelledby="trade-fence" tabindex="0">
     <div class="tpanel__head"><h3 id="tTitle"></h3><p id="tLine"></p></div>
     <div class="styles" id="styles"></div>
-    <div class="sdots" id="sdots" aria-hidden="true"><i class="on"></i><i></i><i></i><span>Swipe for all 3 styles</span></div>
+    <div class="sdots" id="sdots" aria-label="Website style navigation"><i class="on"></i><i></i><i></i><span>Swipe for all 3 styles</span></div>
   </div>
 </section>
 
@@ -540,14 +595,14 @@ body.no-announce .announce{transform:translateY(-100%)}
       <h3>Explore the sample conversation</h3>
       <p>Explore the simulated conversation to see the intended experience. Our demo phone number is below. Live text-back is pending carrier registration.</p>
       <div class="numbox"><small>Demo phone number</small><a href="tel:+17068082127">(706) 808-2127</a><span>Text-back demo pending carrier registration.</span></div>
-      <div class="dpills" id="dpills" role="tablist" aria-label="Sample trade"></div>
+      <div class="dpills" id="dpills" role="group" aria-label="Sample trade"></div>
     </div>
     <div class="rv d1">
       <div class="phone">
         <div class="phone__screen">
           <div class="phone__bar"><b id="dName">[Business Name]</b><span>Text message</span></div>
-          <div class="phone__body" id="chat" aria-live="polite"></div>
-          <div class="phone__foot"><span>Simulated conversation</span><button id="replay">Replay</button></div>
+          <div class="phone__body" id="chat" role="log" aria-live="polite" aria-label="Sample text conversation" tabindex="0"></div>
+          <div class="phone__foot"><span>Simulated conversation</span><button id="replay" type="button">Replay</button></div>
         </div>
       </div>
       <p class="sim">Illustrative script. Live text-back demo coming soon.</p>
@@ -563,8 +618,8 @@ body.no-announce .announce{transform:translateY(-100%)}
   </div>
   <div class="guarantee rv">
     <div class="guarantee__t"><div class="guarantee__ic"><svg viewBox="0 0 20 20" fill="none" stroke-width="2" stroke-linecap="round"><path d="M10 2l6 2.5v5c0 4-2.6 6.8-6 8-3.4-1.2-6-4-6-8v-5z"/><path d="M7 10l2.2 2.2L13 8"/></svg></div>
-      <div><b>7-day subscription trial. No contract. Cancel anytime.</b><span>$399 one-time setup fee applies. Monthly subscription billing begins after the trial. Texting activation is subject to carrier registration.</span></div></div>
-    <a href="https://buy.stripe.com/bJe6oHdG44iebWP3dw3Je04" class="btn btn--white">Start free trial</a>
+      <div><b>7-day subscription trial. No contract. Cancel anytime.</b><span>$399 setup is charged at checkout. Monthly subscription billing begins after the 7-day trial. Texting activation is subject to carrier registration.</span></div></div>
+    <a href="https://buy.stripe.com/bJe6oHdG44iebWP3dw3Je04" class="btn btn--white">View trial &amp; setup</a>
   </div>
   <div class="plans">
     <div class="plan rv">
@@ -620,9 +675,9 @@ body.no-announce .announce{transform:translateY(-100%)}
   </div>
   <ol class="tl" id="tl" style="list-style:none">
     <li class="tl__step"><i>1</i><small>Day 1</small><h3>Quick intake form</h3><p>A short form instead of a call &mdash; your hours, service area and the jobs you want, on your own time.</p></li>
-    <li class="tl__step"><i>2</i><small>Same week</small><h3>Demo on your line</h3><p>We connect your number and send a short walkthrough video, then you call it yourself to see the text-back live.</p></li>
-    <li class="tl__step"><i>3</i><small>End of week 1</small><h3>Review results together</h3><p>We go through the missed calls, conversations and any bookings that came in.</p></li>
-    <li class="tl__step"><i>4</i><small>Your call</small><h3>Decide if you continue</h3><p>Keep it going, or cancel. No contract and nothing to untangle.</p></li>
+    <li class="tl__step"><i>2</i><small>Same week</small><h3>Demo on your line</h3><p>After carrier registration is approved, we connect your number and send a short walkthrough video so you can test the text-back yourself.</p></li>
+    <li class="tl__step"><i>3</i><small>After your trial</small><h3>Review results together</h3><p>We go through the missed calls, conversations and any bookings that came in.</p></li>
+    <li class="tl__step"><i>4</i><small>Your call</small><h3>Decide if you continue</h3><p>Keep the monthly service or cancel it. The $399 setup fee is separate from the subscription trial; review the terms before checkout.</p></li>
   </ol>
 </section>
 
@@ -634,7 +689,7 @@ body.no-announce .announce{transform:translateY(-100%)}
     <div class="acc__item"><button class="acc__q" aria-expanded="false">Do I need to change my phone number?<svg width="20" height="20" viewBox="0 0 20 20" stroke="currentColor" stroke-width="1.5"><path d="M10 2v16M2 10h16"/></svg></button><div class="acc__a"><div><p>No. It works alongside your existing number through call forwarding for unanswered calls.</p></div></div></div>
     <div class="acc__item"><button class="acc__q" aria-expanded="false">Is the website mockup really free?<svg width="20" height="20" viewBox="0 0 20 20" stroke="currentColor" stroke-width="1.5"><path d="M10 2v16M2 10h16"/></svg></button><div class="acc__a"><div><p>Yes. We build a sample with your business name, logo, location and photos so you can see it before talking to anyone. There's no obligation.</p></div></div></div>
     <div class="acc__item"><button class="acc__q" aria-expanded="false">Which trades do you build for?<svg width="20" height="20" viewBox="0 0 20 20" stroke="currentColor" stroke-width="1.5"><path d="M10 2v16M2 10h16"/></svg></button><div class="acc__a"><div><p>Fence, pressure washing, garage doors, pool service, landscaping, appliance repair, electrical, HVAC, locksmith, plumbing, water damage restoration and roofing. Each has website design styles to choose from.</p></div></div></div>
-    <div class="acc__item"><button class="acc__q" aria-expanded="false">Can I stop at just the text-back, without the website?<svg width="20" height="20" viewBox="0 0 20 20" stroke="currentColor" stroke-width="1.5"><path d="M10 2v16M2 10h16"/></svg></button><div class="acc__a"><div><p>Yes. Missed-call recovery works on its own. The website is optional.</p></div></div></div>
+    <div class="acc__item"><button class="acc__q" aria-expanded="false">Can I stop at just the text-back, without the website?<svg width="20" height="20" viewBox="0 0 20 20" stroke="currentColor" stroke-width="1.5"><path d="M10 2v16M2 10h16"/></svg></button><div class="acc__a"><div><p>Missed-call recovery can work with your existing site. The published Starter package includes a website; contact us for a recovery-only quote.</p></div></div></div>
   </div>
 </section>
 
@@ -647,12 +702,18 @@ body.no-announce .announce{transform:translateY(-100%)}
       <a class="call rv d2" href="mailto:nayakkrish668@gmail.com" style="font-size:clamp(18px,2.3vw,30px);overflow-wrap:anywhere">nayakkrish668@gmail.com</a>
     </div>
     <form class="form rv d1" id="mockupForm" novalidate>
-      <label>Business name<input name="business" type="text" autocomplete="organization" required></label>
+      <label>Business name<input name="business" type="text" autocomplete="organization" aria-describedby="businessError" required></label>
+      <span id="businessError" class="field-error" role="alert"></span>
       <label>Your trade<select name="trade"><option>Fence installation / repair</option><option>Pressure washing / exterior cleaning</option><option>Garage door</option><option>Pool service</option><option>Landscaping / hardscaping</option><option>Appliance repair</option><option>Electrical</option><option>HVAC</option><option>Locksmith</option><option>Plumbing</option><option>Water damage restoration</option><option>Roofing</option></select></label>
-      <label>Mobile number<input name="phone" type="tel" autocomplete="tel" required></label>
+      <label>Mobile number<input name="phone" type="tel" autocomplete="tel" inputmode="tel" maxlength="30" aria-describedby="phoneHelp phoneError" required></label>
+      <span id="phoneError" class="field-error" role="alert"></span>
+      <span id="phoneHelp" class="field-help">Include your area code, or country code for an international number.</span>
+      <input type="hidden" name="style" value="">
+      <p class="style-choice" id="styleChoice" role="status"></p>
       <button class="btn btn--white" type="submit">Open email request</button>
       <p style="font-size:13px;color:#aab0d0">Opens your email app with your request filled in. Send the email to complete your request, or email <a href="mailto:nayakkrish668@gmail.com">nayakkrish668@gmail.com</a>.</p>
       <div class="form__msg" id="formMsg" role="status"></div>
+      <div class="form__fallback" id="requestFallback" hidden><label for="requestText">Your request, ready to copy</label><textarea id="requestText" readonly></textarea><p class="field-help">If your email app does not open, copy this request and send it to nayakkrish668@gmail.com.</p></div>
     </form>
   </div>
 </section>
@@ -662,8 +723,8 @@ body.no-announce .announce{transform:translateY(-100%)}
   <div class="foot__mark" aria-hidden="true">ColdFront</div>
   <div class="foot__grid">
     <div><a href="#top" class="logo" style="margin-bottom:16px">ColdFront Studio</a><p style="color:#888;font-size:14px;max-width:260px;line-height:1.55">AI missed-call recovery and websites for home service businesses.</p></div>
-    <div><h4>Product</h4><ul><li><a href="#how">How it works</a></li><li><a href="#demo">Live demo</a></li><li><a href="#pricing">Pricing</a></li></ul></div>
-    <div><h4>Trades</h4><ul><li><a href="#trade">HVAC</a></li><li><a href="#trade">Plumbing</a></li><li><a href="#trade">Electrical</a></li><li><a href="#trade">Roofing</a></li><li><a href="#trade">All trades</a></li></ul></div>
+    <div><h4>Product</h4><ul><li><a href="#how">How it works</a></li><li><a href="#demo">How it texts back</a></li><li><a href="#pricing">Pricing</a></li></ul></div>
+    <div><h4>Trades</h4><ul><li><a href="#trade" data-trade="hvac">HVAC</a></li><li><a href="#trade" data-trade="plumbing">Plumbing</a></li><li><a href="#trade" data-trade="electric">Electrical</a></li><li><a href="#trade" data-trade="roofing">Roofing</a></li><li><a href="#trade">All trades</a></li></ul></div>
     <div><h4>Contact</h4><ul><li><a href="tel:+17068082127">(706) 808-2127</a></li><li><a href="mailto:nayakkrish668@gmail.com">Email us</a></li><li><a href="#mockup">Free mockup</a></li><li><a href="#faq">FAQ</a></li></ul></div>
   </div>
   <div class="foot__base"><span>© 2026 ColdFront Studio</span><span><a href="/terms.html" style="color:#888">Terms</a> &nbsp;&middot;&nbsp; <a href="/privacy.html" style="color:#888">Privacy</a></span></div>
@@ -780,12 +841,24 @@ body.no-announce .announce{transform:translateY(-100%)}
   };
 
   /* ===== announcement / menu ===== */
-  $('#announceX').addEventListener('click',function(){document.body.classList.add('no-announce')});
+  $('#announceX').addEventListener('click',function(){document.body.classList.add('no-announce');onScroll()});
   var burger=$('#burger'),menu=$('#menu');
-  function toggleMenu(o){burger.setAttribute('aria-expanded',o);menu.classList.toggle('open',o);menu.setAttribute('aria-hidden',!o);document.body.style.overflow=o?'hidden':''}
+  function toggleMenu(o){
+    burger.setAttribute('aria-expanded',o);menu.classList.toggle('open',o);menu.setAttribute('aria-hidden',!o);menu.inert=!o;
+    document.body.classList.toggle('menu-open',o);document.body.style.overflow=o?'hidden':'';
+    $('main').inert=o;$('.foot').inert=o;$('#mbar').inert=o;
+    if(o)$('a',menu).focus();else burger.focus();
+  }
+  document.addEventListener('keydown',function(e){
+    if(e.key!=='Tab'||!menu.classList.contains('open'))return;
+    var items=[burger].concat($$('a',menu)),first=items[0],last=items[items.length-1];
+    if(e.shiftKey&&document.activeElement===first){e.preventDefault();last.focus()}
+    else if(!e.shiftKey&&document.activeElement===last){e.preventDefault();first.focus()}
+  });
+  addEventListener('resize',function(){if(innerWidth>1024&&menu.classList.contains('open'))toggleMenu(false)});
   burger.addEventListener('click',function(){toggleMenu(burger.getAttribute('aria-expanded')!=='true')});
   $$('a',menu).forEach(function(a){a.addEventListener('click',function(){toggleMenu(false)})});
-  document.addEventListener('keydown',function(e){if(e.key==='Escape')toggleMenu(false)});
+  document.addEventListener('keydown',function(e){if(e.key==='Escape'&&menu.classList.contains('open'))toggleMenu(false)});
 
   /* reveal */
   var io=new IntersectionObserver(function(es){es.forEach(function(e){if(e.isIntersecting){e.target.classList.add('in');io.unobserve(e.target)}})},{threshold:.12,rootMargin:'0px 0px -6% 0px'});
@@ -803,34 +876,43 @@ body.no-announce .announce{transform:translateY(-100%)}
       '<div class="t-nav"><b>'+s.n+'</b><span>Services</span><span>Gallery</span><span class="t-call">Call now</span></div>'+
       '<div class="t-copy"><div class="t-h">'+s.tag+'</div><div class="t-p">Licensed and insured. Free estimates. Serving your neighborhood.</div><span class="t-btn">Get a free quote</span></div></div>';
   }
-  var tsel=$('#tsel'),stylesEl=$('#styles'),cur=0;
-  tsel.innerHTML=TRADES.map(function(t,i){return '<button class="tcardsel" role="tab" aria-selected="'+(i===0)+'" data-i="'+i+'"><span class="num">'+('0'+(i+1)).slice(-2)+'</span><div><b>'+t.name+'</b><span>'+t.styles.length+' styles · '+t.sub+'</span></div></button>'}).join('');
+  var tsel=$('#tsel'),stylesEl=$('#styles'),cur=0,preferredStyle='';
+  var previewObserver=new IntersectionObserver(function(entries){entries.forEach(function(entry){
+    var frame=entry.target;if(!entry.isIntersecting||!frame.dataset.src)return;
+    frame.src=frame.dataset.src;delete frame.dataset.src;previewObserver.unobserve(frame);
+  })},{rootMargin:'120px'});
+  function syncInquiry(i){$('#mockupForm select').selectedIndex=i;preferredStyle='';$('#mockupForm [name="style"]').value='';$('#styleChoice').textContent=''}
+  tsel.innerHTML=TRADES.map(function(t,i){return '<button class="tcardsel" role="tab" id="trade-'+t.id+'" aria-controls="tpanel" tabindex="'+(i===0?'0':'-1')+'" aria-selected="'+(i===0)+'" data-i="'+i+'"><span class="num">'+('0'+(i+1)).slice(-2)+'</span><div><b>'+t.name+'</b><span>'+t.styles.length+' styles · '+t.sub+'</span></div></button>'}).join('');
   function renderTrade(i,animate){
-    cur=i;var t=TRADES[i];
-    $('#tTitle').textContent='See '+t.styles.length+' style'+(t.styles.length>1?'s':'')+' we’ve built for '+t.name.toLowerCase()+' businesses';
+    cur=i;var t=TRADES[i];previewObserver.disconnect();$('#tpanel').setAttribute('aria-labelledby','trade-'+t.id);
+    $('#tTitle').textContent='See '+t.styles.length+' style'+(t.styles.length>1?'s':'')+' we’ve built for '+t.name+' businesses';
     $('#tLine').textContent=t.line;
     stylesEl.innerHTML=t.styles.map(function(s,k){var label='Style '+(k+1);
-      return '<article class="style"><div class="frame"><div class="live">'+(s.url&&s.url!=='#'?'<iframe src="'+s.url+'" loading="lazy" tabindex="-1" title="'+label+' preview"></iframe><a href="'+s.url+'" target="_blank" rel="noopener" aria-label="Open '+label+' demo">Open demo</a>':'<div class="empty">Add demo URL</div>')+'</div></div><h4>'+label+'</h4><p>'+s.desc.charAt(0).toUpperCase()+s.desc.slice(1)+'</p><a class="btn btn--black btn--sm" href="'+s.url+'" target="_blank" rel="noopener">View live demo</a></article>';
+      return '<article class="style"><div class="frame"><div class="live">'+(s.url&&s.url!=='#'?'<span class="preview-loading" aria-hidden="true">Loading website preview…</span><iframe data-src="'+s.url+'" loading="lazy" tabindex="-1" inert aria-hidden="true" title="'+label+' preview"></iframe><a href="'+s.url+'" target="_blank" rel="noopener" aria-label="Open '+t.name+' '+label+' demo in a new tab">Open demo</a>':'<div class="empty">Add demo URL</div>')+'</div></div><h4>'+label+'</h4><p>'+s.desc.charAt(0).toUpperCase()+s.desc.slice(1)+'</p><div class="style-actions"><a class="btn btn--black btn--sm" href="'+s.url+'" target="_blank" rel="noopener" aria-label="View '+t.name+' '+label+' demo in a new tab">View live demo</a><a class="btn btn--sm style-use" href="#mockup" data-style="'+k+'">Use this style</a></div></article>';
     }).join('');
     stylesEl.scrollLeft=0;fitLive();
-    var sd=$('#sdots');sd.innerHTML=t.styles.map(function(_,n){return '<i'+(n===0?' class="on"':'')+'></i>'}).join('')+'<span>Swipe for all '+t.styles.length+' styles</span>';
+    $$('.live iframe').forEach(function(frame){frame.addEventListener('load',function(){if(frame.getAttribute('src'))frame.parentElement.classList.add('ready')});previewObserver.observe(frame)});
+    var sd=$('#sdots');sd.innerHTML=t.styles.map(function(_,n){return '<button type="button" data-style-index="'+n+'" aria-label="Show style '+(n+1)+'" aria-pressed="'+(n===0)+'"'+(n===0?' class="on"':'')+'></button>'}).join('')+'<span>Swipe for all '+t.styles.length+' styles</span>';
     if(animate){stylesEl.classList.remove('swap');void stylesEl.offsetWidth;stylesEl.classList.add('swap')}
   }
-  stylesEl.addEventListener('scroll',function(){var k=stylesEl.children[0];if(!k)return;var mx=stylesEl.scrollWidth-stylesEl.clientWidth,i=mx>4?Math.round(stylesEl.scrollLeft/mx*(stylesEl.children.length-1)):0;$$('#sdots i').forEach(function(d,n){d.classList.toggle('on',n===i)})},{passive:true});
+  stylesEl.addEventListener('scroll',function(){var k=stylesEl.children[0];if(!k)return;var mx=stylesEl.scrollWidth-stylesEl.clientWidth,i=mx>4?Math.round(stylesEl.scrollLeft/mx*(stylesEl.children.length-1)):0;$$('#sdots button').forEach(function(d,n){d.classList.toggle('on',n===i);d.setAttribute('aria-pressed',n===i)})},{passive:true});
   function fitLive(){$$('.live').forEach(function(l){var f=$('iframe',l);if(f)f.style.transform='scale('+(l.clientWidth/1280)+')'})}
   addEventListener('resize',fitLive);
+  $('#sdots').addEventListener('click',function(e){var b=e.target.closest('button');if(!b)return;var count=stylesEl.children.length;stylesEl.scrollTo({left:(stylesEl.scrollWidth-stylesEl.clientWidth)*Number(b.dataset.styleIndex)/(count-1),behavior:reduce?'auto':'smooth'})});
+  stylesEl.addEventListener('click',function(e){var b=e.target.closest('[data-style]');if(!b)return;syncInquiry(cur);preferredStyle='Style '+(Number(b.dataset.style)+1);$('#mockupForm [name="style"]').value=preferredStyle;$('#styleChoice').textContent='Your choice: '+TRADES[cur].name+' · '+preferredStyle});
+  $$('[data-trade]').forEach(function(a){a.addEventListener('click',function(){var i=TRADES.findIndex(function(t){return t.id===a.dataset.trade});if(i>=0)$$('.tcardsel')[i].click()})});
   tsel.addEventListener('click',function(e){var b=e.target.closest('.tcardsel');if(!b)return;
-    $$('.tcardsel').forEach(function(x){x.setAttribute('aria-selected',x===b)});renderTrade(+b.dataset.i,true);setDemo(+b.dataset.i)});
+    $$('.tcardsel').forEach(function(x){x.setAttribute('aria-selected',x===b);x.tabIndex=x===b?0:-1});if(cur!==+b.dataset.i)renderTrade(+b.dataset.i,true);syncInquiry(+b.dataset.i);setDemo(+b.dataset.i)});
   tsel.addEventListener('keydown',function(e){
-    if(e.key!=='ArrowRight'&&e.key!=='ArrowLeft')return;var L=TRADES.length,n=(cur+(e.key==='ArrowRight'?1:L-1))%L;$$('.tcardsel')[n].click();$$('.tcardsel')[n].focus()});
+    if(['ArrowRight','ArrowLeft','Home','End'].indexOf(e.key)<0)return;e.preventDefault();var L=TRADES.length,n=e.key==='Home'?0:e.key==='End'?L-1:(cur+(e.key==='ArrowRight'?1:L-1))%L;$$('.tcardsel')[n].click();$$('.tcardsel')[n].focus()});
 
   /* ===== carousel ===== */
   var track=$('#track'),dots=$('#dots'),cards=$$('.card',track),prev=$('#prev'),next=$('#next');
-  cards.forEach(function(){dots.appendChild(document.createElement('i'))});var dEls=$$('i',dots);
+  cards.forEach(function(_,i){var b=document.createElement('button');b.type='button';b.setAttribute('aria-label','Show process step '+(i+1));dots.appendChild(b)});var dEls=$$('button',dots);
   dEls.forEach(function(d,k){d.style.cursor='pointer';d.addEventListener('click',function(){var mx=track.scrollWidth-track.clientWidth;track.scrollTo({left:mx*k/(cards.length-1),behavior:'smooth'})})});
   function step(){return cards[0].getBoundingClientRect().width+40}
   function upd(){var mx=track.scrollWidth-track.clientWidth,i=mx>4?Math.round(track.scrollLeft/mx*(cards.length-1)):0;i=Math.max(0,Math.min(cards.length-1,i));
-    dEls.forEach(function(d,k){d.classList.toggle('on',k===i)});prev.disabled=track.scrollLeft<4;next.disabled=track.scrollLeft+track.clientWidth>=track.scrollWidth-4}
+    dEls.forEach(function(d,k){d.classList.toggle('on',k===i);d.setAttribute('aria-pressed',k===i)});prev.disabled=track.scrollLeft<4;next.disabled=track.scrollLeft+track.clientWidth>=track.scrollWidth-4}
   prev.addEventListener('click',function(){track.scrollBy({left:-step(),behavior:'smooth'})});
   next.addEventListener('click',function(){track.scrollBy({left:step(),behavior:'smooth'})});
   track.addEventListener('scroll',upd,{passive:true});addEventListener('resize',upd);upd();
@@ -841,9 +923,9 @@ body.no-announce .announce{transform:translateY(-100%)}
 
   /* ===== chat demo ===== */
   var chat=$('#chat'),dpills=$('#dpills'),timers=[],dCur=0,seen=false;
-  dpills.innerHTML=TRADES.map(function(t,i){return '<button class="pill" role="tab" aria-selected="'+(i===0)+'" data-i="'+i+'">'+t.name+'</button>'}).join('');
+  dpills.innerHTML=TRADES.map(function(t,i){return '<button class="pill" type="button" aria-pressed="'+(i===0)+'" aria-selected="'+(i===0)+'" data-i="'+i+'">'+t.name+'</button>'}).join('');
   function clearT(){timers.forEach(clearTimeout);timers=[]}
-  function add(cls,txt,anim){var d=document.createElement('div');d.className=cls+(anim?' new':'');d.textContent=txt;chat.appendChild(d);return d}
+  function add(cls,txt,anim){var d=document.createElement('div');d.className=cls+(anim?' new':'');d.textContent=txt;chat.appendChild(d);chat.scrollTop=chat.scrollHeight;return d}
   function play(){
     clearT();chat.innerHTML='';var c=CHAT[TRADES[dCur].id];$('#dName').textContent=c.biz;
     var seq=[
@@ -867,22 +949,32 @@ body.no-announce .announce{transform:translateY(-100%)}
       }else timers.push(setTimeout(function(){add(m[0],m[1],true)},t));
     });
   }
-  function setDemo(i){dCur=i;$$('#dpills .pill').forEach(function(x){x.setAttribute('aria-selected',+x.dataset.i===i)});if(seen)play()}
+  function setDemo(i){dCur=i;$$('#dpills .pill').forEach(function(x){x.setAttribute('aria-selected',+x.dataset.i===i);x.setAttribute('aria-pressed',+x.dataset.i===i)});if(seen)play();syncInquiry(i)}
   dpills.addEventListener('click',function(e){var b=e.target.closest('.pill');if(b)setDemo(+b.dataset.i)});
-  $('#replay').addEventListener('click',play);
+  $('#replay').addEventListener('click',function(){seen=true;play()});
   new IntersectionObserver(function(es,o){if(es[0].isIntersecting){seen=true;play();o.disconnect()}},{threshold:.4}).observe($('.phone'));
 
   /* faq */
-  $$('.acc__q').forEach(function(q){q.addEventListener('click',function(){var o=q.getAttribute('aria-expanded')==='true';$$('.acc__q').forEach(function(x){x.setAttribute('aria-expanded','false')});q.setAttribute('aria-expanded',!o)})});
+  $$('.acc__q').forEach(function(q,i){q.id='faq-question-'+i;var panel=q.nextElementSibling;panel.id='faq-answer-'+i;q.setAttribute('aria-controls',panel.id);panel.setAttribute('aria-labelledby',q.id);panel.inert=q.getAttribute('aria-expanded')!=='true'});
+  $$('.acc__q').forEach(function(q){q.addEventListener('click',function(){var o=q.getAttribute('aria-expanded')==='true';$$('.acc__q').forEach(function(x){x.setAttribute('aria-expanded','false')});q.setAttribute('aria-expanded',!o);$$('.acc__q').forEach(function(x){x.nextElementSibling.inert=x.getAttribute('aria-expanded')!=='true'})})});
 
   /* Email inquiry: the visitor reviews and sends from their own email app. */
   $('#mockupForm').addEventListener('submit',function(e){
     e.preventDefault();var f=e.target,msg=$('#formMsg');
-    if(!f.reportValidity())return;
-    var body='Business: '+f.business.value.trim()+'\nTrade: '+f.trade.value+'\nMobile: '+f.phone.value.trim()+'\n\nI would like a free website mockup for my business.';
-    window.location.href='mailto:nayakkrish668@gmail.com?subject='+encodeURIComponent('Free website mockup request')+'&body='+encodeURIComponent(body);
+    var businessError=f.business.value.trim()?'':'Enter your business name.';
+    f.business.setCustomValidity(businessError);$('#businessError').textContent=businessError;f.business.setAttribute('aria-invalid',!!businessError);
+    var digits=f.phone.value.replace(/\D/g,'');
+    var phoneError=digits.length>=10&&digits.length<=15?'':'Enter a phone number with 10 to 15 digits.';
+    f.phone.setCustomValidity(phoneError);$('#phoneError').textContent=phoneError;f.phone.setAttribute('aria-invalid',!!phoneError);
+    if(!f.reportValidity()){msg.textContent='Check your business name and phone number above.';return;}
+    var style=f.elements.namedItem('style').value;
+    var body='Business: '+f.business.value.trim()+'\nTrade: '+f.trade.value+'\nMobile: '+f.phone.value.trim()+(style?'\nPreferred design: '+style:'')+'\n\nI would like a free website mockup for my business.';
+    $('#requestText').value=body;$('#requestFallback').hidden=false;window.location.href='mailto:nayakkrish668@gmail.com?subject='+encodeURIComponent('Free website mockup request')+'&body='+encodeURIComponent(body);
     msg.textContent='Your email app will open with the request. Send it there to complete your request. If it does not open, email nayakkrish668@gmail.com.';
   });
+
+  $('#mockupForm').addEventListener('input',function(e){if(e.target.setCustomValidity){e.target.setCustomValidity('');e.target.removeAttribute('aria-invalid');var error=$('#'+e.target.name+'Error');if(error)error.textContent=''}});
+  $('#mockupForm select').addEventListener('change',function(){preferredStyle='';$('#mockupForm [name="style"]').value='';$('#styleChoice').textContent=''});
 
   /* ===== scroll effects ===== */
   var nav=$('#nav'),mbar=$('#mbar'),hero=$('#hero'),secs=$$('[data-nav]'),tick=false;
@@ -890,9 +982,9 @@ body.no-announce .announce{transform:translateY(-100%)}
   function onScroll(){
     var y=scrollY,vh=innerHeight,probe=(parseInt(getComputedStyle(document.body).getPropertyValue('--bar-h'))||0)+40,theme='dark';
     secs.forEach(function(s){var r=s.getBoundingClientRect();if(r.top<=probe&&r.bottom>probe)theme=s.dataset.nav});
-    var past=y>40;
+    document.documentElement.style.setProperty('--anchor-offset',(nav.getBoundingClientRect().bottom+16)+'px');var past=y>40;
     nav.classList.toggle('is-light',past&&theme==='light');nav.classList.toggle('is-dark',past&&theme==='dark');
-    mbar.classList.toggle('show',y>vh*.6);
+    mbar.classList.toggle('show',y>vh*.6&&!menu.classList.contains('open'));mbar.inert=y<=vh*.6||menu.classList.contains('open');
     if(!reduce){var hp=cl(y/hero.offsetHeight,0,1),sh=$('.showcase');
       sh.style.setProperty('--p1',(30-hp*90)+'px');sh.style.setProperty('--p2',(-hp*50)+'px');sh.style.setProperty('--p3',(40-hp*130)+'px')}
     var gr=tt.getBoundingClientRect(),gp=cl((vh*.85-gr.top)/(vh*.4),0,1)*wEls.length;
