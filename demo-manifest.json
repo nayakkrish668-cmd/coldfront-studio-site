@@ -1,0 +1,65 @@
+[
+  {
+    "path": "demos/appliance-clone/index.html"
+  },
+  {
+    "path": "demos/service-sites/appliance/index.html"
+  },
+  {
+    "path": "demos/single-file-sites/appliance-repair.html"
+  },
+  {
+    "path": "demos/electric-clone/index.html"
+  },
+  {
+    "path": "demos/service-sites/electrical/index.html"
+  },
+  {
+    "path": "demos/single-file-sites/electrician.html"
+  },
+  {
+    "path": "demos/hvac-clone/index.html"
+  },
+  {
+    "path": "demos/service-sites/hvac/index.html"
+  },
+  {
+    "path": "demos/single-file-sites/hvac.html"
+  },
+  {
+    "path": "demos/locksmith-clone/index.html"
+  },
+  {
+    "path": "demos/service-sites/locksmith/index.html"
+  },
+  {
+    "path": "demos/single-file-sites/locksmith.html"
+  },
+  {
+    "path": "demos/plumbing-clone/index.html"
+  },
+  {
+    "path": "demos/service-sites/plumbing/index.html"
+  },
+  {
+    "path": "demos/single-file-sites/plumbing.html"
+  },
+  {
+    "path": "demos/restoration-clone/index.html"
+  },
+  {
+    "path": "demos/service-sites/restoration/index.html"
+  },
+  {
+    "path": "demos/single-file-sites/water-damage-restoration.html"
+  },
+  {
+    "path": "demos/roofing-clone/index.html"
+  },
+  {
+    "path": "demos/service-sites/roofing/index.html"
+  },
+  {
+    "path": "demos/single-file-sites/roofing.html"
+  }
+]
