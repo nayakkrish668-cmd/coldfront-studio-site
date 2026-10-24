@@ -834,7 +834,7 @@ html.intro-on .badge,html.intro-on .hero h1 em,html.intro-on .hero__sub,html.int
 
   /* ===== lead params: ?biz=&trade=&style=&city=&state=&street=&zip= ===== */
   function qp(k){try{return (new URLSearchParams(location.search).get(k)||'').trim().slice(0,120)}catch(e){return ''}}
-  var biz=qp('biz'),trade=qp('trade').toLowerCase(),styleRaw=qp('style').toLowerCase(),city=qp('city'),state=qp('state'),street=qp('street'),zip=qp('zip');
+  var biz=qp('biz'),trade=qp('trade').toLowerCase(),styleRaw=qp('style').toLowerCase(),city=qp('city'),state=qp('state'),street=qp('street'),zip=qp('zip'),phone=qp('phone');
 
   /* Same trade keys as coldfront/personalize_leads.py (LEGACY_TRADE_SLUGS + TRADE_DEMO_MAP) */
   var LEGACY={'fence':'fence','fencing':'fence','garage door':'garage','garage':'garage','landscaping':'land','landscape':'land','pool':'pool','pool service':'pool','pressure washing':'wash','power washing':'wash'};
@@ -854,7 +854,7 @@ html.intro-on .badge,html.intro-on .hero h1 em,html.intro-on .hero__sub,html.int
   }
 
   /* Every demo button leads to the designs page, where all three designs open full size with a switcher. */
-  var leadQ=(function(){var q=new URLSearchParams();if(biz)q.set('biz',biz);if(trade)q.set('trade',trade);if(styleRaw)q.set('style',styleRaw);if(city)q.set('city',city);if(state)q.set('state',state);if(street)q.set('street',street);if(zip)q.set('zip',zip);return q.toString()})();
+  var leadQ=(function(){var q=new URLSearchParams();if(biz)q.set('biz',biz);if(trade)q.set('trade',trade);if(styleRaw)q.set('style',styleRaw);if(city)q.set('city',city);if(state)q.set('state',state);if(street)q.set('street',street);if(zip)q.set('zip',zip);if(phone)q.set('phone',phone);return q.toString()})();
   function designsHref(n){return '/outreach/designs/'+(leadQ?'?'+leadQ:'')+(n?'#'+n:'')}
   var ownN=path?(LEGACY.hasOwnProperty(trade)?(+(style||'style1').slice(-1)||1):1):0;
 
@@ -881,7 +881,8 @@ html.intro-on .badge,html.intro-on .hero h1 em,html.intro-on .hero__sub,html.int
       if(isLegacy){base='/demos/legacy/'+key+'-style'+n+'/';addr=n>=2}
       else{var m=ALT[key];base=n===1?'/demos/'+key+'/':(n===2?'/demos/service-sites/'+m[0]+'/index.html':'/demos/single-file-sites/'+m[1])}
       var q=new URLSearchParams();if(biz)q.set('biz',biz);
-      if(addr){if(city)q.set('city',city);if(state)q.set('state',state);if(street)q.set('street',street);if(zip)q.set('zip',zip)}
+      if(city)q.set('city',city);if(state)q.set('state',state);if(phone)q.set('phone',phone);   /* every design uses these */
+      if(street)q.set('street',street);if(zip)q.set('zip',zip);   /* the designs use these to show the lead's real address */
       var qs=q.toString();return base+(qs?'?'+qs:'');
     }
     var own=isLegacy?(+style.slice(-1)||1):1;
