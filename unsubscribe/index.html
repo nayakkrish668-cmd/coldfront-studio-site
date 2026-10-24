@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="robots" content="noindex, nofollow">
+<meta name="theme-color" content="#0A0A0F">
+<title>Unsubscribe | ColdFront Studio</title>
+<link rel="icon" href="/favicon.svg" type="image/svg+xml">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter+Tight:wght@300;400;500;600&amp;display=swap" rel="stylesheet">
+<style>
+:root{--bg:#0A0A0F;--surface:#111118;--border:#23232d;--accent:#4B6EFF;--text:#F2F2F5;--muted:#9a9ab0;--font:'Inter Tight','Helvetica Neue',Helvetica,Arial,sans-serif}
+*{box-sizing:border-box;margin:0;padding:0}
+html{background:var(--bg)}
+body{min-height:100vh;display:grid;place-items:center;padding:32px 20px;background:radial-gradient(60% 50% at 50% 0%,rgba(75,110,255,.22),transparent 70%),var(--bg);color:var(--text);font-family:var(--font);font-size:15px;line-height:1.5;-webkit-font-smoothing:antialiased}
+.card{width:min(520px,100%)}
+.logo{display:flex;align-items:center;gap:10px;font-weight:600;letter-spacing:-.02em;font-size:1.05rem;margin-bottom:40px;color:var(--text);text-decoration:none}
+.logo svg{width:28px;height:28px;stroke:#fff;fill:none;stroke-width:2;stroke-linecap:round}
+h1{font-size:clamp(30px,6vw,44px);font-weight:300;letter-spacing:-.055em;line-height:1.05;margin-bottom:14px}
+p.lead{color:#c4c8dc;max-width:440px;margin-bottom:28px}
+form{display:grid;gap:12px;background:var(--surface);border:1px solid var(--border);border-radius:10px;padding:24px}
+label{display:grid;gap:8px;font-size:12px;letter-spacing:.06em;text-transform:uppercase;color:var(--muted)}
+input{height:52px;border-radius:6px;border:1px solid #2c2c3a;background:#0e0e15;color:#fff;padding:0 14px;font:inherit;font-size:16px;text-transform:none;letter-spacing:0}
+input:focus{outline:2px solid var(--accent);outline-offset:1px}
+button{height:56px;border-radius:6px;border:0;background:#fff;color:#000;font:inherit;font-size:14px;font-weight:500;letter-spacing:.02em;text-transform:uppercase;cursor:pointer;transition:background .2s}
+button:hover{background:#e6e6ec}
+.err{min-height:18px;font-size:13px;color:#ff8f8f}
+.done{display:none;margin-top:18px;padding:18px;border-radius:10px;border:1px solid #2a3a2a;background:#0f1a12;color:#cfe9d4}
+.done.show{display:block}
+.done b{display:block;margin-bottom:6px;color:#fff;font-weight:500}
+textarea{width:100%;margin-top:12px;min-height:96px;border-radius:6px;border:1px solid #2c2c3a;background:#0e0e15;color:#e8e8ee;padding:12px;font:inherit;font-size:14px;resize:vertical}
+.small{margin-top:22px;font-size:13px;color:var(--muted)}
+.small a{color:#c9c9d6}
+</style>
+</head>
+<body>
+<main class="card">
+  <a class="logo" href="/" aria-label="ColdFront Studio home"><svg viewBox="0 0 32 32"><circle cx="16" cy="16" r="4"/><circle cx="16" cy="16" r="9" opacity=".6"/><circle cx="16" cy="16" r="14" opacity=".3"/></svg>ColdFront Studio</a>
+  <h1>Unsubscribe</h1>
+  <p class="lead">Enter the email address you want us to stop contacting. We will not email it again.</p>
+
+  <form id="f" novalidate>
+    <label>Email address<input id="email" name="email" type="email" autocomplete="email" inputmode="email" required></label>
+    <div class="err" id="err" role="alert"></div>
+    <button type="submit">Unsubscribe me</button>
+  </form>
+
+  <div class="done" id="done" role="status" aria-live="polite">
+    <b>One last step: send the email that opens.</b>
+    Your email app should have opened with your request filled in. Press send and we will remove you within 10 business days, usually much sooner.
+    <p style="margin-top:12px">If nothing opened, copy this and send it to <a id="addr" href="#"></a>:</p>
+    <textarea id="copy" readonly aria-label="Your unsubscribe request, ready to copy"></textarea>
+  </div>
+
+  <p class="small">You can also reply to any email from us with the word <b>unsubscribe</b>. You will not be asked to log in, pay, or give us anything beyond your email address.</p>
+</main>
+
+<script>
+(function(){
+  /* The address that receives opt-outs. Make sure this inbox is checked at least every few business days. */
+  var OPT_OUT_EMAIL='hello.coldfrontstudio@gmail.com';
+  var $=function(s){return document.querySelector(s)};
+  var emailInput=$('#email'),err=$('#err'),done=$('#done');
+
+  /* prefill from ?e=you@example.com (the link in each email carries it) */
+  try{var e=(new URLSearchParams(location.search).get('e')||'').trim().slice(0,200);if(e)emailInput.value=e}catch(_){}
+
+  $('#f').addEventListener('submit',function(ev){
+    ev.preventDefault();
+    var v=emailInput.value.trim();
+    if(!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(v)){err.textContent='Enter a valid email address.';emailInput.setAttribute('aria-invalid','true');emailInput.focus();return}
+    err.textContent='';emailInput.removeAttribute('aria-invalid');
+    var subject='Unsubscribe',body='Please remove this address from all ColdFront Studio emails and do not contact it again:\n\n'+v+'\n';
+    $('#copy').value='To: '+OPT_OUT_EMAIL+'\nSubject: '+subject+'\n\n'+body;
+    var a=$('#addr');a.textContent=OPT_OUT_EMAIL;a.href='mailto:'+OPT_OUT_EMAIL;
+    done.classList.add('show');
+    window.location.href='mailto:'+OPT_OUT_EMAIL+'?subject='+encodeURIComponent(subject)+'&body='+encodeURIComponent(body);
+  });
+})();
+</script>
+</body>
+</html>

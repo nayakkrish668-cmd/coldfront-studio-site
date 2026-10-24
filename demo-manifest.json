@@ -61,5 +61,50 @@
   },
   {
     "path": "demos/single-file-sites/roofing.html"
+  },
+  {
+    "path": "demos/legacy/fence-style1/index.html"
+  },
+  {
+    "path": "demos/legacy/fence-style2/index.html"
+  },
+  {
+    "path": "demos/legacy/fence-style3/index.html"
+  },
+  {
+    "path": "demos/legacy/wash-style1/index.html"
+  },
+  {
+    "path": "demos/legacy/wash-style2/index.html"
+  },
+  {
+    "path": "demos/legacy/wash-style3/index.html"
+  },
+  {
+    "path": "demos/legacy/garage-style1/index.html"
+  },
+  {
+    "path": "demos/legacy/garage-style2/index.html"
+  },
+  {
+    "path": "demos/legacy/garage-style3/index.html"
+  },
+  {
+    "path": "demos/legacy/pool-style1/index.html"
+  },
+  {
+    "path": "demos/legacy/pool-style2/index.html"
+  },
+  {
+    "path": "demos/legacy/pool-style3/index.html"
+  },
+  {
+    "path": "demos/legacy/land-style1/index.html"
+  },
+  {
+    "path": "demos/legacy/land-style2/index.html"
+  },
+  {
+    "path": "demos/legacy/land-style3/index.html"
   }
 ]

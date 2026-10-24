@@ -1,0 +1,15 @@
+node_modules/
+dist/
+.netlify/
+.env*
+!.env.example
+*.log
+test-data/
+form-dist/
+.wrangler/
+.dev.vars*
+supabase/functions/coldfront-onboarding/shared/
+
+!.dev.vars.example
+
+/functions/
