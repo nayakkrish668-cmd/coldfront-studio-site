@@ -641,7 +641,7 @@ html.intro-on .badge,html.intro-on .hero h1 em,html.intro-on .hero__sub,html.int
       <h2 class="h-lg rv" id="ydH">Here is the website we built for you.</h2>
       <p class="yd__sub rv d1">Three designs, each with your name on it. They drift past on their own. Click any one to open it.</p>
     </div>
-    <a class="btn btn--black rv d1" id="ydBtn" href="#" target="_blank" rel="noopener">Open your demo</a>
+    <a class="btn btn--black rv d1" id="ydBtn" href="#" target="_blank" rel="noopener">See all 3 designs</a>
   </div>
   <div class="yd__stage" id="ydStage" role="group" aria-label="Three website designs for your business"></div>
   <p class="yd__note">Live previews. Click any design to open the full site in a new tab.</p>
@@ -853,6 +853,11 @@ html.intro-on .badge,html.intro-on .hero h1 em,html.intro-on .hero__sub,html.int
     var qs=p.toString();demoUrl=path+(qs?'?'+qs:'');
   }
 
+  /* Every demo button leads to the designs page, where all three designs open full size with a switcher. */
+  var leadQ=(function(){var q=new URLSearchParams();if(biz)q.set('biz',biz);if(trade)q.set('trade',trade);if(styleRaw)q.set('style',styleRaw);if(city)q.set('city',city);if(state)q.set('state',state);if(street)q.set('street',street);if(zip)q.set('zip',zip);return q.toString()})();
+  function designsHref(n){return '/outreach/designs/'+(leadQ?'?'+leadQ:'')+(n?'#'+n:'')}
+  var ownN=path?(LEGACY.hasOwnProperty(trade)?(+(style||'style1').slice(-1)||1):1):0;
+
   /* ===== fill hero (textContent only: nothing from the URL is ever parsed as HTML) ===== */
   var place=[city,state].filter(Boolean).join(', ');
   if(biz){
@@ -865,9 +870,9 @@ html.intro-on .badge,html.intro-on .hero h1 em,html.intro-on .hero__sub,html.int
     $('#annText').innerHTML='<b>Your demo is ready.</b> We built a free website sample for your business.';
   }
   if(demoUrl){
-    var btn=$('#demoBtn');btn.href=demoUrl;btn.target='_blank';btn.rel='noopener';btn.textContent='View your demo';
+    var btn=$('#demoBtn');btn.href=designsHref(ownN);btn.target='_blank';btn.rel='noopener';btn.textContent='See your 3 designs';
     $('#heroNote').textContent='Opens in a new tab. Free to look around, nothing to sign up for.';
-    var mb=$('#mbarCta');mb.href=demoUrl;mb.target='_blank';mb.rel='noopener';mb.textContent='View your demo';
+    var mb=$('#mbarCta');mb.href=designsHref(ownN);mb.target='_blank';mb.rel='noopener';mb.textContent='See your designs';
     /* strip of the three designs: the lead's own first, then the other two (all personalized) */
     var ALT={'hvac-clone':['hvac','hvac.html'],'plumbing-clone':['plumbing','plumbing.html'],'electric-clone':['electrical','electrician.html'],'locksmith-clone':['locksmith','locksmith.html'],'restoration-clone':['restoration','water-damage-restoration.html'],'roofing-clone':['roofing','roofing.html'],'appliance-clone':['appliance','appliance-repair.html']};
     var isLegacy=LEGACY.hasOwnProperty(trade);
@@ -884,7 +889,7 @@ html.intro-on .badge,html.intro-on .hero h1 em,html.intro-on .hero__sub,html.int
     var yd=$('#yourdemo'),stage=$('#ydStage');
     yd.hidden=false;
     $('#ydH').textContent=biz?'Here is the website we built for '+biz+'.':'Here is a sample website we built for a business like yours.';
-    $('#ydBtn').href=variantUrl(own);
+    $('#ydBtn').href=designsHref(own);
     function calm(fr){try{var d=fr.contentDocument;if(!d)return;d.querySelectorAll('video').forEach(function(v){v.pause();v.removeAttribute('autoplay');v.autoplay=false;v.preload='none'})}catch(e){}}
 
     /* one row, each design shown once. The three cards wrap around by position (nothing is duplicated or re-inserted), so the loop has no seam */
@@ -892,21 +897,21 @@ html.intro-on .badge,html.intro-on .hero h1 em,html.intro-on .hero__sub,html.int
       var u=variantUrl(n),c=document.createElement('article');
       c.className='yd__card'+(idx===0?' own':'');
       c.innerHTML='<div class="yd__frame"><div class="bf"><div class="bf__bar"><i></i><i></i><i></i><span class="bf__url"></span></div><div class="bf__view"><div class="bf__poster"><div><b></b>Loading this design\u2026</div></div></div></div></div>'+
-        '<div class="yd__meta"><div><span class="yd__tag"></span><b class="yd__name"></b></div><a class="link-arrow" target="_blank" rel="noopener">Open this design <svg width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M2 8h12M9 3l5 5-5 5"/></svg></a></div>';
+        '<div class="yd__meta"><div><span class="yd__tag"></span><b class="yd__name"></b></div><a class="link-arrow" target="_blank" rel="noopener">View full size <svg width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M2 8h12M9 3l5 5-5 5"/></svg></a></div>';
       $('.bf__url',c).textContent=location.host+u.split('?')[0];
       $('.bf__poster b',c).textContent=biz||'Your website';
       $('.yd__tag',c).textContent=idx===0?'Your design':'Also available';
       $('.yd__name',c).textContent='Style '+n;
-      $('.yd__meta a',c).href=u;
+      $('.yd__meta a',c).href=designsHref(n);
       var view=$('.bf__view',c),fr=document.createElement('iframe');
       fr.dataset.src=u;fr.tabIndex=-1;fr.title='Preview of design '+n;
       fr.addEventListener('load',function(){var po=$('.bf__poster',view);if(po)po.remove();calm(fr);setTimeout(function(){calm(fr)},900)});
       view.appendChild(fr);
-      var link=document.createElement('a');link.href=u;link.target='_blank';link.rel='noopener';link.textContent='Open design '+n;view.appendChild(link);
+      var link=document.createElement('a');link.href=designsHref(n);link.target='_blank';link.rel='noopener';link.textContent='Open design '+n;view.appendChild(link);
       stage.appendChild(c);
       return {c:c,view:view,fr:fr};
     });
-    var GAP=28,PX_PER_SEC=28;   /* constant, slow drift */
+    var GAP=28,PX_PER_SEC=70;   /* constant drift speed (px per second); raise it to go faster */
     var off=0,cw=0,step=0,total=0,stageW=0,raf=0,last=0,inView=false,paused=false,loaded=false,lastX=[];
     function fitAll(){cards.forEach(function(k){var sc=k.view.clientWidth/1280;k.fr.style.transform='scale('+sc+')';k.fr.style.height=(k.view.clientHeight/sc)+'px'})}
     function place(){
@@ -932,8 +937,6 @@ html.intro-on .badge,html.intro-on .hero h1 em,html.intro-on .hero__sub,html.int
     function kick(){if(!raf&&inView&&!document.hidden){last=0;raf=requestAnimationFrame(frame)}}
     layout();requestAnimationFrame(layout);addEventListener('resize',layout);addEventListener('load',layout);
     document.addEventListener('visibilitychange',kick);
-    stage.addEventListener('pointerenter',function(e){if(e.pointerType==='mouse')paused=true});
-    stage.addEventListener('pointerleave',function(e){if(e.pointerType==='mouse'){paused=false;kick()}});
     /* previews load one at a time, only once the row is near the screen; hidden again when it is far away */
     function loadFrames(){if(loaded)return;loaded=true;cards.forEach(function(k,i){setTimeout(function(){k.fr.src=k.fr.dataset.src},i*600)})}
     new IntersectionObserver(function(es){
@@ -948,6 +951,8 @@ html.intro-on .badge,html.intro-on .hero h1 em,html.intro-on .hero__sub,html.int
   if(biz)f.business.value=biz;
   if(key&&TRADE_OPTION[key]){var opts=$$('option',f.trade);for(var i=0;i<opts.length;i++){if(opts[i].textContent.indexOf(TRADE_OPTION[key])>-1){f.trade.selectedIndex=i;break}}}
   if(style){var n=style.slice(-1);f.elements.namedItem('style').value='Style '+n;$('#styleChoice').textContent='Preferred design: Style '+n+' (from your demo)'}
+  var pk=/^[123]$/.exec(qp('pick'));
+  if(pk){f.elements.namedItem('style').value='Style '+pk[0];$('#styleChoice').textContent='Preferred design: Style '+pk[0]+' (picked on the designs page)'}
 
   /* ===== walkthrough video: tap to play, pause when scrolled away ===== */
   var vid=$('#vid'),walk=$('#walk');

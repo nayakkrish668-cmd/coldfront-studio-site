@@ -1,0 +1,194 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="robots" content="noindex, nofollow">
+<meta name="theme-color" content="#0A0A0F">
+<title>Your three designs | ColdFront Studio</title>
+<link rel="icon" href="/favicon.svg" type="image/svg+xml">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter+Tight:wght@300;400;500;600&amp;display=swap" rel="stylesheet">
+<style>
+:root{--bg:#0A0A0F;--surface:#111118;--border:#23232d;--accent:#4B6EFF;--text:#F2F2F5;--muted:#9a9ab0;--font:'Inter Tight','Helvetica Neue',Helvetica,Arial,sans-serif;--ease:cubic-bezier(.22,.61,.36,1)}
+*{box-sizing:border-box;margin:0;padding:0}
+html,body{height:100%;background:var(--bg);color:var(--text);font-family:var(--font);font-size:15px;line-height:1.4;-webkit-font-smoothing:antialiased;overflow:hidden}
+a{color:inherit;text-decoration:none}
+button{font:inherit;color:inherit;background:none;border:0;cursor:pointer}
+:focus-visible{outline:2px solid #7f98ff;outline-offset:2px}
+.app{display:flex;flex-direction:column;height:100dvh}
+
+/* header */
+.bar{flex:none;display:flex;align-items:center;gap:18px;padding:10px 20px;border-bottom:1px solid var(--border);background:var(--bg);flex-wrap:wrap}
+.back{display:inline-flex;align-items:center;gap:8px;min-height:44px;padding-right:6px;color:#c9c9d6;font-weight:500;white-space:nowrap}
+.back:hover{color:#fff}
+.who{min-width:0;margin-right:auto}
+.who b{display:block;font-size:15px;font-weight:500;letter-spacing:-.02em;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;max-width:34ch}
+.who span{font-size:12px;color:var(--muted)}
+.tabs{display:flex;gap:6px;background:var(--surface);border:1px solid var(--border);border-radius:99px;padding:4px}
+.tab{min-height:44px;padding:0 18px;border-radius:99px;font-size:14px;font-weight:500;color:#c9c9d6;display:inline-flex;align-items:center;gap:8px;white-space:nowrap;transition:background .25s,color .25s}
+.tab:hover{color:#fff}
+.tab[aria-selected="true"]{background:#fff;color:#000}
+.tab em{font-style:normal;font-size:10.5px;font-weight:600;letter-spacing:.08em;text-transform:uppercase;padding:3px 8px;border-radius:99px;background:var(--accent);color:#fff}
+.tools{display:flex;align-items:center;gap:8px}
+.seg{display:flex;border:1px solid var(--border);border-radius:99px;padding:3px}
+.seg button{min-height:38px;padding:0 14px;border-radius:99px;font-size:13px;font-weight:500;color:#c9c9d6}
+.seg button[aria-pressed="true"]{background:#23232d;color:#fff}
+.btn{display:inline-flex;align-items:center;justify-content:center;min-height:44px;padding:0 18px;border-radius:6px;font-size:13px;font-weight:500;letter-spacing:.02em;text-transform:uppercase;white-space:nowrap;transition:background .2s,transform .2s}
+.btn--ghost{border:1px solid rgba(255,255,255,.3);color:#fff}
+.btn--ghost:hover{background:rgba(255,255,255,.1)}
+.btn--white{background:#fff;color:#000}
+.btn--white:hover{background:#e6e6ec}
+
+/* stage */
+.stage{flex:1;min-height:0;display:flex;justify-content:center;align-items:stretch;padding:16px 20px 20px;background:radial-gradient(60% 40% at 50% 0%,rgba(75,110,255,.14),transparent 70%)}
+.frame{position:relative;width:100%;max-width:1600px;background:#fff;border-radius:12px;overflow:hidden;border:1px solid var(--border);box-shadow:0 30px 80px rgba(0,0,0,.45);transition:max-width .45s var(--ease),border-radius .45s var(--ease)}
+.frame.phone{max-width:390px;border-radius:30px;border:8px solid #1b1b24}
+.frame iframe{position:absolute;inset:0;width:100%;height:100%;border:0;background:#fff;display:none}
+.frame iframe.on{display:block}
+.loading{position:absolute;inset:0;display:grid;place-items:center;background:#0f0f14;color:var(--muted);font-size:14px;z-index:2;transition:opacity .3s}
+.loading.gone{opacity:0;pointer-events:none}
+.msg{margin:auto;max-width:460px;text-align:center;padding:40px 20px}
+.msg h1{font-size:28px;font-weight:300;letter-spacing:-.05em;margin-bottom:12px}
+.msg p{color:#c4c8dc;margin-bottom:22px}
+
+@media (max-width:900px){
+  .bar{display:grid;grid-template-columns:auto 1fr;grid-template-areas:"back who" "tabs tabs";gap:2px 6px;padding:6px 10px}
+  .back{grid-area:back;justify-content:center;min-width:44px;padding:0}
+  .back .bt{display:none}
+  .who{grid-area:who;margin:0}
+  .who b{max-width:none}
+  .tabs{grid-area:tabs;width:100%;overflow-x:auto;scrollbar-width:none}
+  .tabs::-webkit-scrollbar{display:none}
+  .tab{flex:1;justify-content:center;padding:0 12px}
+  .tab em{display:none}
+  .tools{position:fixed;left:0;right:0;bottom:0;z-index:5;width:auto;gap:8px;padding:8px 10px calc(8px + env(safe-area-inset-bottom));background:var(--bg);border-top:1px solid var(--border)}
+  .tools .seg{display:none}
+  .tools .btn{flex:1}
+  .stage{padding:8px 8px 76px}
+  .frame{border-radius:10px}
+}
+@media (max-height:520px) and (orientation:landscape){
+  .bar{display:flex;flex-wrap:nowrap;gap:8px;padding:4px 10px}
+  .who{display:none}
+  .tabs{width:auto;margin-right:auto}
+  .tab{flex:none;min-height:40px}
+  .tools{position:static;width:auto;border:0;padding:0;background:none}
+  .tools .btn{flex:none;min-height:40px}
+  .stage{padding:6px}
+}
+@media (prefers-reduced-motion:reduce){*{transition-duration:.001ms!important}}
+</style>
+</head>
+<body>
+<div class="app">
+  <header class="bar" id="bar">
+    <a class="back" id="back" href="/outreach/" aria-label="Back to your page"><svg width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"><path d="M14 8H2M7 3L2 8l5 5"/></svg><span class="bt">Back to your page</span></a>
+    <div class="who"><b id="who">Your designs</b><span id="sub">Three designs, same content</span></div>
+    <nav class="tabs" id="tabs" role="tablist" aria-label="Choose a design"></nav>
+    <div class="tools">
+      <div class="seg" id="seg" role="group" aria-label="Preview size"><button type="button" data-m="desktop" aria-pressed="true">Desktop</button><button type="button" data-m="phone" aria-pressed="false">Phone</button></div>
+      <a class="btn btn--ghost" id="open" href="#" target="_blank" rel="noopener">Open full site</a>
+      <a class="btn btn--white" id="pick" href="#">I want this design</a>
+    </div>
+  </header>
+  <main class="stage" id="stage">
+    <div class="frame" id="frame" aria-live="polite"></div>
+  </main>
+</div>
+
+<script>
+(function(){
+  var $=function(s,c){return (c||document).querySelector(s)};
+  function qp(k){try{return (new URLSearchParams(location.search).get(k)||'').trim().slice(0,120)}catch(e){return ''}}
+  var biz=qp('biz'),trade=qp('trade').toLowerCase(),styleRaw=qp('style').toLowerCase(),city=qp('city'),state=qp('state'),street=qp('street'),zip=qp('zip');
+
+  /* same trade keys and demo paths as the outreach page and personalize_leads.py */
+  var LEGACY={'fence':'fence','fencing':'fence','garage door':'garage','garage':'garage','landscaping':'land','landscape':'land','pool':'pool','pool service':'pool','pressure washing':'wash','power washing':'wash'};
+  var CLONE={'hvac':'hvac-clone','plumbing':'plumbing-clone','electrical':'electric-clone','electrician':'electric-clone','locksmith':'locksmith-clone','restoration':'restoration-clone','water damage':'restoration-clone','roofing':'roofing-clone','appliance':'appliance-clone','appliance repair':'appliance-clone'};
+  var ALT={'hvac-clone':['hvac','hvac.html'],'plumbing-clone':['plumbing','plumbing.html'],'electric-clone':['electrical','electrician.html'],'locksmith-clone':['locksmith','locksmith.html'],'restoration-clone':['restoration','water-damage-restoration.html'],'roofing-clone':['roofing','roofing.html'],'appliance-clone':['appliance','appliance-repair.html']};
+  var m=/^(style)?([123])$/.exec(styleRaw),leadStyle=m?+m[2]:0;
+  var isLegacy=LEGACY.hasOwnProperty(trade),isClone=CLONE.hasOwnProperty(trade);
+  var key=isLegacy?LEGACY[trade]:(isClone?CLONE[trade]:'');
+
+  /* the lead's own query string, passed back to the outreach page */
+  var lead=new URLSearchParams();
+  if(biz)lead.set('biz',biz);if(trade)lead.set('trade',trade);if(styleRaw)lead.set('style',styleRaw);
+  if(city)lead.set('city',city);if(state)lead.set('state',state);if(street)lead.set('street',street);if(zip)lead.set('zip',zip);
+  var leadQs=lead.toString();
+  $('#back').href='/outreach/'+(leadQs?'?'+leadQs:'');
+
+  var frame=$('#frame'),stage=$('#stage');
+  if(!key){
+    stage.innerHTML='<div class="msg"><h1>We could not find your designs</h1><p>This link is missing a trade, so we do not know which designs to show. Go back to the page and use the link from your email.</p><a class="btn btn--white" href="/outreach/">Back to the page</a></div>';
+    $('#tabs').hidden=true;$('.tools').hidden=true;
+    return;
+  }
+
+  function variantUrl(n){
+    var base,addr=false;
+    if(isLegacy){base='/demos/legacy/'+key+'-style'+n+'/';addr=n>=2}
+    else{var a=ALT[key];base=n===1?'/demos/'+key+'/':(n===2?'/demos/service-sites/'+a[0]+'/index.html':'/demos/single-file-sites/'+a[1])}
+    var q=new URLSearchParams();if(biz)q.set('biz',biz);
+    if(addr){if(city)q.set('city',city);if(state)q.set('state',state);if(street)q.set('street',street);if(zip)q.set('zip',zip)}
+    var qs=q.toString();return base+(qs?'?'+qs:'');
+  }
+  var own=isLegacy?(leadStyle||1):1;
+
+  if(biz){$('#who').textContent=biz;document.title='Your three designs for '+biz+' | ColdFront Studio'}
+  $('#sub').textContent='Three designs, each with your name on it';
+
+  var tabsEl=$('#tabs'),frames=[],loaded=[false,false,false],cur=-1;
+  var loadingEl=document.createElement('div');loadingEl.className='loading';loadingEl.textContent='Loading your design…';frame.appendChild(loadingEl);
+
+  [1,2,3].forEach(function(n,i){
+    var b=document.createElement('button');b.type='button';b.className='tab';b.id='tab-'+n;b.setAttribute('role','tab');b.setAttribute('aria-controls','frame-'+n);b.dataset.i=i;
+    b.appendChild(document.createTextNode('Style '+n));
+    if(n===own){var e=document.createElement('em');e.textContent='Your design';b.appendChild(e)}
+    tabsEl.appendChild(b);
+    var fr=document.createElement('iframe');fr.id='frame-'+n;fr.title='Design '+n+(biz?' for '+biz:'');fr.setAttribute('loading','eager');
+    frame.appendChild(fr);frames.push(fr);
+  });
+
+  function videos(fr,play){try{fr.contentDocument.querySelectorAll('video').forEach(function(v){if(play){if(v.hasAttribute('autoplay')||v.loop)v.play().catch(function(){})}else v.pause()})}catch(e){}}
+  function load(i){
+    if(loaded[i])return;loaded[i]=true;
+    frames[i].addEventListener('load',function(){if(i===cur)loadingEl.classList.add('gone')},{once:true});
+    frames[i].src=variantUrl(i+1);
+  }
+  function select(i,fromUser){
+    if(i<0)i=2;if(i>2)i=0;
+    if(i===cur)return;
+    var prev=cur;cur=i;
+    [].forEach.call(tabsEl.children,function(b,k){b.setAttribute('aria-selected',k===i);b.tabIndex=k===i?0:-1});
+    frames.forEach(function(fr,k){fr.classList.toggle('on',k===i);if(k!==i&&k===prev)videos(fr,false)});
+    var n=i+1,u=variantUrl(n);
+    if(!loaded[i]){loadingEl.classList.remove('gone');load(i)}else{loadingEl.classList.add('gone');videos(frames[i],true)}
+    $('#open').href=u;
+    var pk=new URLSearchParams(lead.toString());pk.set('pick',String(n));
+    $('#pick').href='/outreach/?'+pk.toString()+'#mockup';
+    $('#pick').textContent=(n===own?'I want this design':'I want style '+n);
+    try{history.replaceState(null,'','#'+n)}catch(e){}
+    /* once the visible one is up, warm the others so switching is instant */
+    if(fromUser!==true&&!select.warm){select.warm=true;[0,1,2].filter(function(k){return k!==i}).forEach(function(k,j){setTimeout(function(){load(k)},2500+j*1500)})}
+  }
+  tabsEl.addEventListener('click',function(e){var b=e.target.closest('.tab');if(b)select(+b.dataset.i,true)});
+  document.addEventListener('keydown',function(e){
+    if(e.target&&/INPUT|TEXTAREA|SELECT/.test(e.target.tagName))return;
+    if(e.key==='ArrowRight')select(cur+1,true);else if(e.key==='ArrowLeft')select(cur-1,true);
+    else if(e.key==='1'||e.key==='2'||e.key==='3')select(+e.key-1,true);
+  });
+  /* desktop / phone preview size */
+  $('#seg').addEventListener('click',function(e){
+    var b=e.target.closest('button');if(!b)return;
+    [].forEach.call($('#seg').children,function(x){x.setAttribute('aria-pressed',x===b)});
+    frame.classList.toggle('phone',b.dataset.m==='phone');
+  });
+
+  var h=/^#([123])$/.exec(location.hash);
+  select(h?+h[1]-1:own-1);
+})();
+</script>
+</body>
+</html>
