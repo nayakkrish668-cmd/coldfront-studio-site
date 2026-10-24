@@ -1091,7 +1091,7 @@ html.intro-on .badge,html.intro-on .hero h1 em,html.intro-on .hero__sub,html.int
     var fd=new FormData();Object.keys(payload).forEach(function(k){fd.append(k,payload[k])});   /* form data + Accept: application/json is the documented Formspree pattern */
     fetch(FORM_ENDPOINT,{method:'POST',headers:{'Accept':'application/json'},body:fd})
       .then(function(r){return r.json().catch(function(){return {}}).then(function(j){if(!r.ok||j.success===false||j.ok===false)throw new Error('send failed')})})
-      .then(function(){msg.textContent='Thanks. We got your request and will be in touch soon.';$('#requestFallback').hidden=true;f.reset();$('#styleChoice').textContent=''})
+      .then(function(){track('request-sent');msg.textContent='Thanks. We got your request and will be in touch soon.';$('#requestFallback').hidden=true;f.reset();$('#styleChoice').textContent=''})
       .catch(function(){msg.textContent='That did not send, so we are opening your email app instead. Send the email there to finish.';viaEmailApp()})
       .then(function(){btn.disabled=false;btn.textContent=label});
   });
@@ -1132,6 +1132,30 @@ html.intro-on .badge,html.intro-on .hero h1 em,html.intro-on .hero__sub,html.int
     el.addEventListener('click',skip);
     document.addEventListener('keydown',function(e){if(e.key==='Escape'||e.key==='Enter')skip()});
   })();
+
+  /* ===== analytics (GoatCounter: free, no cookies, no consent banner) =====
+     Set GC_CODE to your GoatCounter site code (the part before .goatcounter.com). Blank = tracking off.
+     Each lead gets its own row, e.g. /outreach/rivertown-plumbing, so you can see who opened their link. */
+  var GC_CODE='';
+  function track(name){
+    try{if(window.goatcounter&&window.goatcounter.count)window.goatcounter.count({path:name,title:biz||'(no name)',event:true})}catch(e){}
+  }
+  if(GC_CODE){
+    var slug=(biz||'no-name').toLowerCase().replace(/[^a-z0-9]+/g,'-').replace(/^-|-$/g,'').slice(0,60)||'no-name';
+    window.goatcounter={no_onload:true,allow_local:false};
+    var gs=document.createElement('script');gs.async=true;gs.src='https://gc.zgo.at/count.js';
+    gs.setAttribute('data-goatcounter','https://'+GC_CODE+'.goatcounter.com/count');
+    gs.onload=function(){try{window.goatcounter.count({path:'/outreach/'+slug,title:biz||'(no name)'})}catch(e){}};
+    document.head.appendChild(gs);
+  }
+  document.addEventListener('click',function(e){
+    var a=e.target.closest&&e.target.closest('a');if(!a)return;
+    var h=a.getAttribute('href')||'';
+    if(h.indexOf('/outreach/designs/')===0)track('click-see-designs');
+    else if(h.indexOf('tel:')===0)track('click-call');
+    else if(h.indexOf('buy.stripe.com')>-1)track('click-stripe');
+    else if(h==='#mockup')track('click-free-mockup');
+  },true);
 
   window.__cfReady=true;
   onScroll();
