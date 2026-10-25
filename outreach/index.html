@@ -836,6 +836,14 @@ html.intro-on .badge,html.intro-on .hero h1 em,html.intro-on .hero__sub,html.int
   function qp(k){try{return (new URLSearchParams(location.search).get(k)||'').trim().slice(0,120)}catch(e){return ''}}
   var biz=qp('biz'),trade=qp('trade').toLowerCase(),styleRaw=qp('style').toLowerCase(),city=qp('city'),state=qp('state'),street=qp('street'),zip=qp('zip'),phone=qp('phone'),rating=qp('rating'),reviews=qp('reviews');
 
+  /* Silently tell the real missed-call-AI backend who this visitor is, so if
+     they call the public "try it yourself" demo number from the same phone
+     their listing uses, it answers in character as THEIR business/trade
+     instead of the generic fallback. Fire-and-forget: never blocks the page,
+     and if the call-in number doesn't match (e.g. they call from a personal
+     cell instead), it just falls back to the generic demo with no error. */
+  if(biz&&trade&&phone){try{var rd=new FormData();rd.append('business',biz);rd.append('trade',trade);rd.append('phone',phone);fetch('https://coldfront-missed-call-ai.onrender.com/register-demo-caller',{method:'POST',body:rd}).catch(function(){})}catch(e){}}
+
   /* Same trade keys as coldfront/personalize_leads.py (LEGACY_TRADE_SLUGS + TRADE_DEMO_MAP) */
   var LEGACY={'fence':'fence','fencing':'fence','garage door':'garage','garage':'garage','landscaping':'land','landscape':'land','pool':'pool','pool service':'pool','pressure washing':'wash','power washing':'wash'};
   var CLONE={'hvac':'hvac-clone','plumbing':'plumbing-clone','electrical':'electric-clone','electrician':'electric-clone','locksmith':'locksmith-clone','restoration':'restoration-clone','water damage':'restoration-clone','roofing':'roofing-clone','appliance':'appliance-clone','appliance repair':'appliance-clone'};
