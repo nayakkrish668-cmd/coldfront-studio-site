@@ -22,7 +22,9 @@
   var P;
   try { P = new URLSearchParams(window.location.search); } catch (e) { return; }
   var biz = (P.get("biz") || "").trim().slice(0, 120);
-  if (!biz) return; /* no name in the link: leave the page as the sample */
+  /* no name in the link (e.g. someone browsing the main site): keep the sample brand, but still clear the
+     template's bracketed stand-ins so nobody sees "[4.9]" or "[Lic. #]" */
+  var sampleOnly = !biz;
   var city = (P.get("city") || "").trim().slice(0, 60);
   var state = (P.get("state") || "").trim().slice(0, 30);
   var phoneRaw = (P.get("phone") || "").trim().slice(0, 30);
@@ -69,11 +71,13 @@
     /* the character before must not be a letter/digit; the one after must not be either */
     nameRules.push({ re: new RegExp("(^|[^A-Za-z0-9])(" + esc(sample) + ")(?![A-Za-z0-9])", "gi"), repl: repl });
   }
-  addName(cfg.full, biz);
-  if (cfg.short && cfg.short !== cfg.full) addName(cfg.short, bizShort);
+  if (!sampleOnly) {
+    addName(cfg.full, biz);
+    if (cfg.short && cfg.short !== cfg.full) addName(cfg.short, bizShort);
+  }
 
   var phoneRules = [];
-  (cfg.phones || []).forEach(function (p) {
+  (sampleOnly ? [] : (cfg.phones || [])).forEach(function (p) {
     if (phone) {
       phoneRules.push({ re: new RegExp(esc(p), "g"), repl: phone });
     } else {
@@ -271,6 +275,7 @@
 
   function run() {
     try {
+      if (sampleOnly) { if (document.body) fixPlaceholders(); return; }
       if (document.body) { fixPlaceholders(); walkText(document.body); fixWordmarks(); fixLinks(); }
       fixAttrs();
     } catch (e) { /* never break the demo page */ }
