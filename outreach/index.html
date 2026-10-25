@@ -1059,6 +1059,7 @@ html.intro-on .badge,html.intro-on .hero h1 em,html.intro-on .hero__sub,html.int
   /* Request form. With FORM_ENDPOINT set, the request is sent straight to you (the visitor needs no email app).
      If it is not set, or a send fails, it falls back to opening the visitor's email app with the request filled in. */
   var FORM_ENDPOINT='https://formspree.io/f/xeebgzno';      /* e.g. 'https://api.web3forms.com/submit' or 'https://formspree.io/f/xxxxxxxx' */
+  var NOTIFY_ENDPOINT='https://coldfront-missed-call-ai.onrender.com/notify-request';   /* texts the owner's phone the moment a request comes in; best-effort, never blocks the form */
   var FORM_ACCESS_KEY='';    /* Web3Forms access key (public by design). Leave blank for Formspree. */
   var OWNER_EMAIL='hello.coldfrontstudio@gmail.com';
   var mf=f;
@@ -1087,6 +1088,10 @@ html.intro-on .badge,html.intro-on .hero h1 em,html.intro-on .hero__sub,html.int
     if(FORM_ACCESS_KEY)payload.access_key=FORM_ACCESS_KEY;
     var label=btn.textContent;btn.disabled=true;btn.textContent='Sending\u2026';msg.textContent='';
     var fd=new FormData();Object.keys(payload).forEach(function(k){fd.append(k,payload[k])});   /* form data + Accept: application/json is the documented Formspree pattern */
+    if(NOTIFY_ENDPOINT){   /* fire-and-forget text to the owner's phone; never blocks or affects the Formspree result below */
+      var nd=new FormData();nd.append('business',f.business.value.trim());nd.append('trade',f.trade.value);nd.append('phone',f.phone.value.trim());nd.append('preferred_design',st||'');nd.append('page',location.href);
+      fetch(NOTIFY_ENDPOINT,{method:'POST',body:nd}).catch(function(){});
+    }
     fetch(FORM_ENDPOINT,{method:'POST',headers:{'Accept':'application/json'},body:fd})
       .then(function(r){return r.json().catch(function(){return {}}).then(function(j){if(!r.ok||j.success===false||j.ok===false)throw new Error('send failed')})})
       .then(function(){track('request-sent');msg.textContent='Thanks. We got your request and will be in touch soon.';$('#requestFallback').hidden=true;f.reset();$('#styleChoice').textContent=''})
