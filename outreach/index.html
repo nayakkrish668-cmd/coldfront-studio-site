@@ -856,7 +856,9 @@ html.intro-on .badge,html.intro-on .hero h1 em,html.intro-on .hero__sub,html.int
   /* Every demo button leads to the designs page, where all three designs open full size with a switcher. */
   var leadQ=(function(){var q=new URLSearchParams();if(biz)q.set('biz',biz);if(trade)q.set('trade',trade);if(styleRaw)q.set('style',styleRaw);if(city)q.set('city',city);if(state)q.set('state',state);if(street)q.set('street',street);if(zip)q.set('zip',zip);if(phone)q.set('phone',phone);return q.toString()})();
   function designsHref(n){return '/outreach/designs/'+(leadQ?'?'+leadQ:'')+(n?'#'+n:'')}
-  var ownN=path?(LEGACY.hasOwnProperty(trade)?(+(style||'style1').slice(-1)||1):1):0;
+  /* display order: position 1 is real style 3. Cards, #1/#2/#3 links and the pick param all use display positions. */
+  var SHOW=[3,1,2];
+  var ownN=path?1:0;
 
   /* ===== fill hero (textContent only: nothing from the URL is ever parsed as HTML) ===== */
   var place=[city,state].filter(Boolean).join(', ');
@@ -883,12 +885,11 @@ html.intro-on .badge,html.intro-on .hero h1 em,html.intro-on .hero__sub,html.int
       if(street)q.set('street',street);if(zip)q.set('zip',zip);   /* the designs use these to show the lead's real address */
       var qs=q.toString();return base+(qs?'?'+qs:'');
     }
-    var own=isLegacy?(+style.slice(-1)||1):1;
-    var order=[own].concat([1,2,3].filter(function(n){return n!==own}));
+    var order=SHOW.slice();
     var yd=$('#yourdemo'),stage=$('#ydStage');
     yd.hidden=false;
     $('#ydH').textContent=biz?'And the free website we built for '+biz+'.':'And a free sample website, like the one we would build for you.';
-    $('#ydBtn').href=designsHref(own);
+    $('#ydBtn').href=designsHref(1);
     function calm(fr){try{var d=fr.contentDocument;if(!d)return;d.querySelectorAll('video').forEach(function(v){v.pause();v.removeAttribute('autoplay');v.autoplay=false;v.preload='none'})}catch(e){}}
 
     /* one row, each design shown once. The three cards wrap around by position (nothing is duplicated or re-inserted), so the loop has no seam */
@@ -899,14 +900,14 @@ html.intro-on .badge,html.intro-on .hero h1 em,html.intro-on .hero__sub,html.int
         '<div class="yd__meta"><div><span class="yd__tag"></span><b class="yd__name"></b></div><a class="link-arrow" target="_blank" rel="noopener">View full size <svg width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M2 8h12M9 3l5 5-5 5"/></svg></a></div>';
       $('.bf__url',c).textContent=location.host+u.split('?')[0];
       $('.bf__poster b',c).textContent=biz||'Your website';
-      $('.yd__tag',c).textContent=idx===0?'Your design':'Also available';
-      $('.yd__name',c).textContent='Style '+n;
-      $('.yd__meta a',c).href=designsHref(n);
+      $('.yd__tag',c).textContent=idx===0?'Featured':'Also available';
+      $('.yd__name',c).textContent='Style '+(idx+1);
+      $('.yd__meta a',c).href=designsHref(idx+1);
       var view=$('.bf__view',c),fr=document.createElement('iframe');
-      fr.dataset.src=u;fr.tabIndex=-1;fr.title='Preview of design '+n;
+      fr.dataset.src=u;fr.tabIndex=-1;fr.title='Preview of design '+(idx+1);
       fr.addEventListener('load',function(){var po=$('.bf__poster',view);if(po)po.remove();calm(fr);setTimeout(function(){calm(fr)},900)});
       view.appendChild(fr);
-      var link=document.createElement('a');link.href=designsHref(n);link.target='_blank';link.rel='noopener';link.textContent='Open design '+n;view.appendChild(link);
+      var link=document.createElement('a');link.href=designsHref(idx+1);link.target='_blank';link.rel='noopener';link.textContent='Open design '+(idx+1);view.appendChild(link);
       stage.appendChild(c);
       return {c:c,view:view,fr:fr};
     });
@@ -949,9 +950,8 @@ html.intro-on .badge,html.intro-on .hero h1 em,html.intro-on .hero__sub,html.int
   var f=$('#mockupForm');
   if(biz)f.business.value=biz;
   if(key&&TRADE_OPTION[key]){var opts=$$('option',f.trade);for(var i=0;i<opts.length;i++){if(opts[i].textContent.indexOf(TRADE_OPTION[key])>-1){f.trade.selectedIndex=i;break}}}
-  if(style){var n=style.slice(-1);f.elements.namedItem('style').value='Style '+n;$('#styleChoice').textContent='Preferred design: Style '+n+' (from your demo)'}
   var pk=/^[123]$/.exec(qp('pick'));
-  if(pk){f.elements.namedItem('style').value='Style '+pk[0];$('#styleChoice').textContent='Preferred design: Style '+pk[0]+' (picked on the designs page)'}
+  if(pk){f.elements.namedItem('style').value='Style '+pk[0]+' (file: style'+SHOW[+pk[0]-1]+')';$('#styleChoice').textContent='Preferred design: Style '+pk[0]+' (picked on the designs page)'}
 
   /* ===== walkthrough video: tap to play, pause when scrolled away ===== */
   var vid=$('#vid'),walk=$('#walk');

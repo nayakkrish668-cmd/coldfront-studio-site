@@ -135,7 +135,8 @@ button{font:inherit;color:inherit;background:none;border:0;cursor:pointer}
     if(street)q.set('street',street);if(zip)q.set('zip',zip);
     var qs=q.toString();return base+(qs?'?'+qs:'');
   }
-  var own=isLegacy?(leadStyle||1):1;
+  /* display order: position 1 is real style 3. Tabs, #1/#2/#3 links and the pick button all use display positions. */
+  var SHOW=[3,1,2];
 
   if(biz){$('#who').textContent=biz;document.title='Your three designs for '+biz+' | ColdFront Studio'}
   $('#sub').textContent='Three designs, each with your name on it';
@@ -146,7 +147,7 @@ button{font:inherit;color:inherit;background:none;border:0;cursor:pointer}
   [1,2,3].forEach(function(n,i){
     var b=document.createElement('button');b.type='button';b.className='tab';b.id='tab-'+n;b.setAttribute('role','tab');b.setAttribute('aria-controls','frame-'+n);b.dataset.i=i;
     b.appendChild(document.createTextNode('Style '+n));
-    if(n===own){var e=document.createElement('em');e.textContent='Your design';b.appendChild(e)}
+    if(n===1){var e=document.createElement('em');e.textContent='Featured';b.appendChild(e)}
     tabsEl.appendChild(b);
     var fr=document.createElement('iframe');fr.id='frame-'+n;fr.title='Design '+n+(biz?' for '+biz:'');fr.setAttribute('loading','eager');
     frame.appendChild(fr);frames.push(fr);
@@ -156,7 +157,7 @@ button{font:inherit;color:inherit;background:none;border:0;cursor:pointer}
   function load(i){
     if(loaded[i])return;loaded[i]=true;
     frames[i].addEventListener('load',function(){if(i===cur)loadingEl.classList.add('gone')},{once:true});
-    frames[i].src=variantUrl(i+1);
+    frames[i].src=variantUrl(SHOW[i]);
   }
   function select(i,fromUser){
     if(i<0)i=2;if(i>2)i=0;
@@ -164,12 +165,12 @@ button{font:inherit;color:inherit;background:none;border:0;cursor:pointer}
     var prev=cur;cur=i;
     [].forEach.call(tabsEl.children,function(b,k){b.setAttribute('aria-selected',k===i);b.tabIndex=k===i?0:-1});
     frames.forEach(function(fr,k){fr.classList.toggle('on',k===i);if(k!==i&&k===prev)videos(fr,false)});
-    var n=i+1,u=variantUrl(n);
+    var n=i+1,u=variantUrl(SHOW[i]);
     if(!loaded[i]){loadingEl.classList.remove('gone');load(i)}else{loadingEl.classList.add('gone');videos(frames[i],true)}
     $('#open').href=u;
     var pk=new URLSearchParams(lead.toString());pk.set('pick',String(n));
     $('#pick').href='/outreach/?'+pk.toString()+'#mockup';
-    $('#pick').textContent=(n===own?'I want this design':'I want style '+n);
+    $('#pick').textContent=(n===1?'I want this design':'I want style '+n);
     try{history.replaceState(null,'','#'+n)}catch(e){}
     /* once the visible one is up, warm the others so switching is instant */
     if(fromUser!==true&&!select.warm){select.warm=true;[0,1,2].filter(function(k){return k!==i}).forEach(function(k,j){setTimeout(function(){load(k)},2500+j*1500)})}
@@ -188,7 +189,7 @@ button{font:inherit;color:inherit;background:none;border:0;cursor:pointer}
   });
 
   var h=/^#([123])$/.exec(location.hash);
-  select(h?+h[1]-1:own-1);
+  select(h?+h[1]-1:0);
 })();
 </script>
 </body>
