@@ -28,6 +28,10 @@
   var phoneRaw = (P.get("phone") || "").trim().slice(0, 30);
   var street = (P.get("street") || "").trim().slice(0, 80);
   var zip = (P.get("zip") || "").trim().slice(0, 12);
+  /* the business's own public Google rating, from the Places API. Shown only when it is real and well supported. */
+  var ratingNum = parseFloat(P.get("rating") || "");
+  var reviewsNum = parseInt(P.get("reviews") || "", 10) || 0;
+  var ratingText = (isFinite(ratingNum) && ratingNum >= 4 && ratingNum <= 5 && reviewsNum >= 10) ? ratingNum.toFixed(1) : "";
 
   function shortOf(name) {
     var w = name.replace(/[.,&]/g, " ").split(/\s+/).filter(Boolean);
@@ -70,7 +74,13 @@
 
   var phoneRules = [];
   (cfg.phones || []).forEach(function (p) {
-    if (phone) phoneRules.push({ re: new RegExp(esc(p), "g"), repl: phone });
+    if (phone) {
+      phoneRules.push({ re: new RegExp(esc(p), "g"), repl: phone });
+    } else {
+      /* no public number for this lead: never leave the sample number on the page */
+      phoneRules.push({ re: new RegExp("Call\\s+" + esc(p), "g"), repl: "Call us" });
+      phoneRules.push({ re: new RegExp(esc(p), "g"), repl: "Call us" });
+    }
   });
   var zeroPhone = /\(000\)\s*000-0000|000-000-0000/g;
 
@@ -167,9 +177,101 @@
     }
   }
 
+  /* Templates carry bracketed stand-ins like [4.9], [Lic. #], [30 min], [City 1]. For a real lead we only
+     ever show what we actually know: their city, their public Google rating, their phone. Everything else
+     in brackets is a claim we cannot back up, so the item (or the FAQ entry it sits in) is removed. */
+  /* [City] and [State] (older templates) are rewritten by fixText below, and "[ 1 / 3 ]" is slider UI.
+     None of those are stand-ins to remove. */
+  var KEEP = /^\[(City|State|City \d+|\s*\d+\s*\/\s*\d+\s*)\]$/;
+  var TOKEN = /\[[^\]]{1,60}\]/g;
+  function standIns(s) { return (String(s).match(TOKEN) || []).filter(function (m) { return !KEEP.test(m); }); }
+  var BRACKET = { test: function (s) { return standIns(s).length > 0; } };
+  /* a footer line like " - License: [License No.]" is removed on its own so the copyright text stays */
+  var LICENSE_LINE = /\s*[-–—|·]\s*(?:License|Lic\.?)(?:\s*(?:#|No\.?|number))?\s*:?\s*\[[^\]]{1,60}\]/gi;
+  /* a stand-in inside one of these removes the whole unit: FAQ entry, list item, testimonial card or slide */
+  var UNIT = "details, .acc__item, li, .vcard, .slider_cms_item, blockquote, figure";
+  /* inside a paragraph only the sentence that holds the stand-in is removed */
+  function dropSentences(v) {
+    var toks = [];
+    var masked = v.replace(TOKEN, function (m) { toks.push(m); return "\u0001" + (toks.length - 1) + "\u0002"; });
+    var parts = masked.match(/[^.!?]+[.!?]*\s*|[.!?]+\s*/g) || [masked];
+    var kept = parts.filter(function (p) {
+      var bad = false;
+      p.replace(/\u0001(\d+)\u0002/g, function (_, i) { if (!KEEP.test(toks[+i])) bad = true; return ""; });
+      return !bad;
+    });
+    return kept.join("").replace(/\u0001(\d+)\u0002/g, function (_, i) { return toks[+i]; });
+  }
+  var cityLabel = city ? city + (state ? ", " + state : "") : "";
+  function dropEl(el) { if (el && el.parentNode) el.parentNode.removeChild(el); }
+  /* the templates' sample address (hello@example.com) is not the lead's email: remove the item that shows it */
+  var SAMPLE_EMAIL = /[A-Za-z0-9._%+-]+@example\.(?:com|org|net)/i;
+  function fixSampleEmail() {
+    var w = document.createTreeWalker(document.body, NodeFilter.SHOW_TEXT, {
+      acceptNode: function (n) { return n.parentElement && !SKIP.test(n.parentElement.tagName) && SAMPLE_EMAIL.test(n.nodeValue) ? NodeFilter.FILTER_ACCEPT : NodeFilter.FILTER_REJECT; }
+    });
+    var nodes = [], n;
+    while ((n = w.nextNode())) nodes.push(n);
+    nodes.forEach(function (t) {
+      var el = t.parentElement;
+      if (!el) return;
+      var unit = el.closest("li") || el.closest("a");
+      if (unit) dropEl(unit); else t.nodeValue = t.nodeValue.replace(SAMPLE_EMAIL, "").replace(/\s{2,}/g, " ");
+    });
+    document.querySelectorAll('a[href^="mailto:"]').forEach(function (a) {
+      if (SAMPLE_EMAIL.test(a.getAttribute("href") || "")) { if (!(a.textContent || "").trim()) dropEl(a); else a.removeAttribute("href"); }
+    });
+  }
+
+  function fixPlaceholders() {
+    if (!document.body) return;
+    fixSampleEmail();
+    /* service-area chips: [City 1] ... [City 6] */
+    var chipLists = [];
+    document.querySelectorAll("li").forEach(function (li) {
+      if (/^\[City \d+\]$/.test((li.textContent || "").trim()) && chipLists.indexOf(li.parentNode) < 0) chipLists.push(li.parentNode);
+    });
+    chipLists.forEach(function (ul) {
+      var items = [].slice.call(ul.children).filter(function (li) { return /^\[City \d+\]$/.test((li.textContent || "").trim()); });
+      items.forEach(function (li, i) { if (i === 0 && cityLabel) li.textContent = cityLabel; else dropEl(li); });
+      if (!ul.children.length) dropEl(ul.closest("#areas") || ul);
+    });
+    /* every other bracketed stand-in */
+    var w = document.createTreeWalker(document.body, NodeFilter.SHOW_TEXT, {
+      acceptNode: function (n) { return n.parentElement && !SKIP.test(n.parentElement.tagName) && BRACKET.test(n.nodeValue) ? NodeFilter.FILTER_ACCEPT : NodeFilter.FILTER_REJECT; }
+    });
+    var nodes = [], n;
+    while ((n = w.nextNode())) nodes.push(n);
+    var touched = [];
+    nodes.forEach(function (t) {
+      var v = t.nodeValue, el = t.parentElement;
+      if (!el) return;
+      v = v.replace(LICENSE_LINE, "");
+      if (ratingText) v = v.replace("[4.9]", ratingText);
+      if (!BRACKET.test(v)) { if (v !== t.nodeValue) t.nodeValue = v; return; }
+      var unit = el.closest(UNIT), sec = el.closest("section");
+      if (sec) touched.push(sec);
+      if (unit) { dropEl(unit); return; }
+      if (el.closest("p") || !el.closest("span")) {
+        var nv = dropSentences(v);
+        t.nodeValue = nv;
+        if (!nv.trim()) { var host = el.closest("p") || el; if (!host.textContent.trim()) dropEl(host); }
+        return;
+      }
+      dropEl(el.closest("span"));
+    });
+    /* a section that is left with little more than its heading is removed */
+    touched.forEach(function (sec) {
+      if (sec.parentNode && (sec.innerText || sec.textContent || "").replace(/\s+/g, " ").trim().length < 90) dropEl(sec);
+    });
+    /* tidy containers that ended up empty */
+    document.querySelectorAll(".hc-proof").forEach(function (e) { if (!e.children.length) dropEl(e); });
+    document.querySelectorAll(".trust-strip").forEach(function (e) { if (!e.querySelector("li")) dropEl(e); });
+  }
+
   function run() {
     try {
-      if (document.body) { walkText(document.body); fixWordmarks(); fixLinks(); }
+      if (document.body) { fixPlaceholders(); walkText(document.body); fixWordmarks(); fixLinks(); }
       fixAttrs();
     } catch (e) { /* never break the demo page */ }
   }

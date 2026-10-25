@@ -1,6 +1,8 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Postline Fence Co. | Fence installation and repair</title>
@@ -239,8 +241,8 @@ a.ui-pill,button.ui-pill{transition:color .3s var(--ease-soft),background-color 
 
 /* ---------- manifest ---------- */
 .ui-manifest{position:relative;z-index:2;background:var(--color-beige)}
-.ui-manifest .inner{display:flex;flex-wrap:wrap;justify-content:center;align-items:center;padding-top:1.75rem;padding-bottom:4.5rem;text-align:center;margin:auto}
-@media (min-width:768px){.ui-manifest .inner{padding-bottom:10rem}}
+.ui-manifest .inner{display:flex;flex-wrap:wrap;justify-content:center;align-items:center;padding-top:1.75rem;padding-bottom:1.5rem;text-align:center;margin:auto}
+@media (min-width:768px){.ui-manifest .inner{padding-bottom:2rem}}
 @media (min-width:1024px){.ui-manifest .inner{max-width:calc(var(--grid-column-width)*8 + var(--grid-gutter)*7)}}
 .ui-manifest .inner b{color:var(--color-accent-ink);font-weight:900}
 .ui-manifest .split-text{display:inline-block;white-space:pre;opacity:0;transition:opacity 0s ease calc(var(--index)*.1s)}
@@ -253,7 +255,7 @@ a.ui-pill,button.ui-pill{transition:color .3s var(--ease-soft),background-color 
 .home-categories{--duration:.9s;--easing:var(--ease-in-out);position:relative;z-index:2;background:var(--color-beige)}
 .home-categories .top{padding:var(--grid-margin);cursor:e-resize}
 .home-categories .top .left,.home-categories .top .right{grid-column:span 6}
-.home-categories .top .left{position:relative;aspect-ratio:696/832;overflow:hidden;border-radius:.3rem;background:#ddd}
+.home-categories .top .left{position:relative;aspect-ratio:696/620;overflow:hidden;border-radius:.3rem;background:#ddd}
 .home-categories .top .thumbnail{position:absolute;inset:0;transform:scaleY(0) translateZ(0);transform-origin:50% 0;transition:transform var(--duration) var(--easing);will-change:transform}
 .home-categories .top .thumbnail.-active{transform:scaleY(1) translateZ(0);transform-origin:50% 100%}
 .home-categories .top .thumbnail img{width:100%;height:100%;object-fit:cover}
@@ -394,8 +396,8 @@ a.ui-pill,button.ui-pill{transition:color .3s var(--ease-soft),background-color 
 
 /* ---------- manifest images ---------- */
 .ui-manifestImages{position:relative;z-index:2;background:var(--color-beige)}
-.ui-manifestImages .inner{display:flex;flex-direction:column;align-items:center;margin-bottom:4.5rem;padding-top:1.75rem;text-align:center}
-@media (min-width:768px){.ui-manifestImages .inner{margin-bottom:10rem}}
+.ui-manifestImages .inner{display:flex;flex-direction:column;align-items:center;margin-bottom:3rem;padding-top:1.75rem;text-align:center}
+@media (min-width:768px){.ui-manifestImages .inner{margin-bottom:6rem}}
 .ui-manifestImages .line{overflow:hidden}
 .ui-manifestImages .line > *{display:block;transform:translateY(105%);transition:transform 1s var(--ease-quart) calc(var(--i)*.12s)}
 .ui-manifestImages.is-in-viewport .line > *{transform:none}
@@ -458,7 +460,7 @@ a.ui-pill,button.ui-pill{transition:color .3s var(--ease-soft),background-color 
   .app-footer .credit:hover .label{opacity:0;transition:opacity .2s var(--ease-cubic)}
   .app-footer .credit:hover .tt-icon{opacity:1;transition:opacity .2s var(--ease-cubic) .2s}
 }
-.app-footer .bottom{position:relative;margin-top:auto;aspect-ratio:1920/820;overflow:hidden;perspective:2200px}
+.app-footer .bottom{position:relative;margin-top:auto;aspect-ratio:1920/530;overflow:hidden;perspective:2200px}
 .app-footer .wordmark{
   --rx:0deg;--ry:0deg;
   position:absolute;left:0;right:0;bottom:3.3%;display:flex;justify-content:center;align-items:flex-end;column-gap:1.1%;
@@ -493,7 +495,85 @@ a.ui-pill,button.ui-pill{transition:color .3s var(--ease-soft),background-color 
   *,*::before,*::after{transition:none!important;animation:none!important}
   .split-text{opacity:1!important}
 }
+
+/* ===== conversion layer ===== */
+.trust-strip{position:relative;z-index:3;background:var(--color-beige);border-bottom:1px solid rgba(14,14,14,.12)}
+.trust-strip .inner{display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:1rem 1.5rem;padding:1rem var(--grid-margin)}
+.trust-strip ul{display:flex;flex-wrap:wrap;gap:.6rem 2rem;margin:0;padding:0;list-style:none}
+.trust-strip li{display:flex;flex-direction:column;line-height:1.15}
+.trust-strip li b{font-size:1.15rem;font-weight:700;letter-spacing:-.01em}
+.trust-strip li span{font-size:.62rem;font-family:'Roboto Mono',monospace;text-transform:uppercase;letter-spacing:.06em;opacity:.7}
+.trust-call{display:inline-flex;align-items:center;justify-content:center;min-height:48px;padding:0 1.4rem;border-radius:999px;background:var(--color-orange);color:#0e0e0e;font-weight:700;font-size:.9rem;white-space:nowrap;text-decoration:none}
+@media (hover:hover){.trust-call:hover{background:#0e0e0e;color:var(--color-orange)}}
+.faq-areas{background:var(--color-beige);padding:3.5rem var(--grid-margin) 3rem;position:relative;z-index:3}
+.faq-areas .cols{display:grid;grid-template-columns:1fr;gap:2.5rem}
+@media (min-width:768px){.faq-areas{padding-top:6rem;padding-bottom:5rem}.faq-areas .cols{grid-template-columns:7fr 5fr;gap:4rem}}
+.faq-areas h2{font-size:clamp(1.6rem,2.6vw,2.4rem);font-weight:700;letter-spacing:-.02em;line-height:1.05;margin:0 0 1.25rem}
+.faq-areas details{border-top:1px solid rgba(14,14,14,.18);padding:.9rem 0}
+.faq-areas details:last-child{border-bottom:1px solid rgba(14,14,14,.18)}
+.faq-areas summary{cursor:pointer;font-weight:500;font-size:1.05rem;list-style:none;display:flex;justify-content:space-between;gap:1rem;min-height:48px;align-items:center}
+.faq-areas summary::-webkit-details-marker{display:none}
+.faq-areas summary::after{content:"+";font-size:1.4rem;line-height:1}
+.faq-areas details[open] summary::after{content:"\2212"}
+.faq-areas details p{margin:.3rem 0 .4rem;max-width:42rem;line-height:1.6;opacity:.85}
+.faq-areas .chips{display:flex;flex-wrap:wrap;gap:.5rem;margin:0 0 1.25rem;padding:0;list-style:none}
+.faq-areas .chips li{padding:.45rem .9rem;border:1px solid rgba(14,14,14,.25);border-radius:999px;font-size:.9rem}
+.faq-areas .area-link{font-weight:700;color:var(--color-accent-ink);text-decoration:underline;text-underline-offset:3px;min-height:48px;display:inline-flex;align-items:center}
+.mbar{display:none}
+@media (max-width:767px){
+  .mbar{display:flex;position:fixed;left:0;right:0;bottom:0;z-index:50;gap:.5rem;padding:.5rem .6rem calc(.5rem + env(safe-area-inset-bottom));background:rgba(246,243,234,.96);box-shadow:0 -1px 0 rgba(14,14,14,.12);backdrop-filter:blur(8px)}
+  .mbar a{flex:1;display:flex;align-items:center;justify-content:center;min-height:52px;border-radius:999px;font-weight:700;font-size:1rem;text-decoration:none}
+  .mbar .m-call{background:var(--color-orange);color:#0e0e0e}
+  .mbar .m-quote{background:#0e0e0e;color:#fff}
+  body{padding-bottom:4.5rem}
+  html.-no-scroll .mbar{display:none}
+}
+.app-header .app-call{background:var(--color-orange);color:#0e0e0e;padding:.15rem .7rem;border-radius:999px;font-weight:700}
+@media (hover:hover) and (pointer:fine){.app-header .app-call:hover{color:#0e0e0e;background:#fff}}
+
+/* ===== hero call-to-action overlay ===== */
+.home-hero{background:#1b1b1b}
+.hero-scrim{position:absolute;inset:0;z-index:15;pointer-events:none;background:linear-gradient(90deg,rgba(14,14,14,.62) 0%,rgba(14,14,14,.32) 42%,rgba(14,14,14,0) 70%),linear-gradient(0deg,rgba(14,14,14,.45) 0%,rgba(14,14,14,0) 38%)}
+.hero-cta{position:absolute;z-index:20;left:var(--grid-margin);top:auto;bottom:4.5rem;transform:none;width:min(34rem,calc(100% - var(--grid-margin)*2));color:#fff;pointer-events:none}
+.hero-cta > *{pointer-events:auto}
+.hero-cta .hc-badge{display:inline-flex;align-items:center;gap:.5rem;min-height:2rem;padding:0 .8rem;border-radius:999px;background:rgba(14,14,14,.55);border:1px solid rgba(255,255,255,.28);font-size:.72rem;font-weight:700;letter-spacing:.14em;text-transform:uppercase;backdrop-filter:blur(6px)}
+.hero-cta .hc-badge i{width:.5rem;height:.5rem;border-radius:50%;background:var(--color-orange);display:inline-block;animation:hcPulse 2.4s infinite}
+@keyframes hcPulse{50%{opacity:.35}}
+.hero-cta h2{margin:.9rem 0 .7rem;font-weight:900;font-size:clamp(2.1rem,4.6vw,4.4rem);line-height:1;letter-spacing:-.035em;text-wrap:balance}
+.hero-cta p.hc-sub{margin:0 0 1.2rem;font-size:1.05rem;line-height:1.45;max-width:27rem;color:rgba(255,255,255,.92)}
+.hero-cta .hc-row{display:flex;flex-wrap:wrap;gap:.6rem}
+.hero-cta .hc-btn{display:inline-flex;align-items:center;justify-content:center;min-height:56px;padding:0 1.5rem;border-radius:999px;font-weight:700;font-size:1rem;text-decoration:none;white-space:nowrap;transition:background .3s,color .3s,transform .3s}
+.hero-cta .hc-call{background:var(--color-orange);color:#0e0e0e}
+.hero-cta .hc-quote{background:rgba(255,255,255,.14);border:1px solid rgba(255,255,255,.7);color:#fff;backdrop-filter:blur(6px)}
+@media (hover:hover){.hero-cta .hc-call:hover{background:#fff}.hero-cta .hc-quote:hover{background:#fff;color:#0e0e0e}}
+.hero-cta .hc-proof{display:flex;flex-wrap:wrap;gap:.35rem 1.1rem;margin-top:1rem;font-size:.78rem;font-weight:500;color:rgba(255,255,255,.85)}
+@media (max-width:767px){
+  .hero-scrim{background:linear-gradient(180deg,rgba(14,14,14,.6) 0%,rgba(14,14,14,.35) 45%,rgba(14,14,14,.15) 70%,rgba(14,14,14,.4) 100%)}
+  .hero-cta{top:auto;bottom:9.1rem;transform:none}
+  .hero-cta h2{font-size:2.15rem;margin:.7rem 0 .5rem}
+  .hero-cta p.hc-sub{font-size:.95rem;margin-bottom:.9rem}
+  .hero-cta .hc-row{flex-direction:column}
+  .hero-cta .hc-btn{width:100%;min-height:52px}
+  .hero-cta .hc-proof{display:none}
+}
+@media (prefers-reduced-motion:reduce){.hero-cta .hc-badge i{animation:none}}
+
+/* ===== hide the small slide caption (tag pills + title) over the photo ===== */
+.home-hero .slider li .ui-details{display:none}
+
+
+/* ===== smaller big-type block, tighter spacing ===== */
+.ui-manifestImages .inner{margin-bottom:1rem;padding-top:.5rem}
+@media (min-width:768px){.ui-manifestImages .inner{margin-bottom:1.5rem;padding-top:1rem}.ui-manifestImages .inner.t-h1{font-size:max(52px,min(9.2vw,14.2svh))}}
+
+/* ===== big-type: two wide rows that fill the width ===== */
+.ui-manifestImages .brk{display:none}
+@media (min-width:768px){
+  .ui-manifestImages .inner{flex-direction:row;flex-wrap:wrap;justify-content:center;align-items:center;column-gap:.26em;row-gap:0}
+  .ui-manifestImages .brk{display:block;flex-basis:100%;height:0}
+}
 </style>
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "FAQPage", "mainEntity": [{"@type": "Question", "name": "How long does a fence install take?", "acceptedAnswer": {"@type": "Answer", "text": "Most residential fences take one to three days once materials arrive."}}, {"@type": "Question", "name": "Do I need a permit?", "acceptedAnswer": {"@type": "Answer", "text": "Rules vary by city. We tell you what is needed for your address and handle the paperwork where we can."}}, {"@type": "Question", "name": "Do you mark utilities and property lines?", "acceptedAnswer": {"@type": "Answer", "text": "We call for utility marking before digging. Please share your survey if you have one, so the fence lands on the right line."}}, {"@type": "Question", "name": "Do you remove my old fence?", "acceptedAnswer": {"@type": "Answer", "text": "Yes. We remove and haul away the old fence for [price details]."}}]}</script>
 </head>
 <body>
 
@@ -510,7 +590,6 @@ a.ui-pill,button.ui-pill{transition:color .3s var(--ease-soft),background-color 
       <li><a href="#categories" data-cat="0" class="stag t-h5">install</a></li>
       <li><a href="#categories" data-cat="1" class="stag t-h5">repair</a></li>
       <li><a href="#categories" data-cat="2" class="stag t-h5">gates</a></li>
-      <li><a href="#about" class="stag t-h5">about</a></li>
       <li><a href="#quote" data-quote class="stag t-h5">quote</a></li>
     </ul>
     <a href="#top" class="brand" aria-label="Back to top"><span class="brand-word" id="headWord">POSTLINE</span></a>
@@ -528,7 +607,22 @@ a.ui-pill,button.ui-pill{transition:color .3s var(--ease-soft),background-color 
   <section class="home-hero" id="top">
     <ul class="slider" id="heroSlider"></ul>
     <ul class="controls" id="heroControls"></ul>
+    <div class="hero-scrim" aria-hidden="true"></div>
+    <!-- REPLACE: bracketed trust numbers with real, verifiable ones (rating, response time, license) -->
+    <div class="hero-cta">
+      <span class="hc-badge"><i></i>Free Estimates</span>
+      <h2>A fence built right, on schedule.</h2>
+      <p class="hc-sub">Installation and repair with a written quote and a clear timeline.</p>
+      <div class="hc-row">
+        <a class="hc-btn hc-call" href="tel:+15555550180">Call (555) 555-0180</a>
+        <a class="hc-btn hc-quote" href="#quote" data-quote>Get a free estimate</a>
+      </div>
+      <div class="hc-proof"><span>★ [4.9] Google rating</span><span>[Free] written estimate</span><span>Licensed &amp; insured</span></div>
+    </div>
   </section>
+  <!-- REPLACE: bracketed trust numbers with real, verifiable ones (rating, license #, response time, warranty) -->
+  <section class="trust-strip" id="trust" aria-label="Why customers trust Postline Fence Co."><div class="inner"><ul><li><b>★ [4.9]</b><span>Google rating</span></li><li><b>[Lic. #]</b><span>Licensed &amp; insured</span></li><li><b>[24 hr]</b><span>Estimate turnaround</span></li><li><b>[10 yr]</b><span>Workmanship warranty</span></li></ul><a class="trust-call" href="tel:+15555550180">Call (555) 555-0180</a></div></section>
+
 
   <!-- ============ MANIFEST ============ -->
   <section class="ui-manifest" id="manifest">
@@ -560,7 +654,7 @@ a.ui-pill,button.ui-pill{transition:color .3s var(--ease-soft),background-color 
       <div class="ui-media -video" id="videoMedia">
         <div class="player">
           <!-- REPLACE: the crew at work (sample: Pexels wooden post-and-rail fence) -->
-          <video muted loop playsinline preload="metadata" poster="images/fence-us-1691821331552-lg.jpg" id="reelVideo">
+          <video muted loop playsinline preload="none" poster="images/fence-us-1691821331552-lg.webp" id="reelVideo">
             <source src="video/fence-720.mp4" type="video/mp4">
           </video>
         </div>
@@ -582,6 +676,7 @@ a.ui-pill,button.ui-pill{transition:color .3s var(--ease-soft),background-color 
     <div class="inner t-h1" aria-hidden="true">
       <div class="line" style="--i:0"><span>a fence</span></div>
       <div class="line" style="--i:1"><span>built to</span></div>
+      <span class="brk" aria-hidden="true"></span>
       <div class="line -img line-desktop" style="--i:2">
         <span><span class="dice" id="dice"></span><span>last</span><span class="dice" id="dice2"></span></span>
       </div>
@@ -590,15 +685,6 @@ a.ui-pill,button.ui-pill{transition:color .3s var(--ease-soft),background-color 
   </section>
 
   <!-- ============ PUSH ============ -->
-  <section class="home-push grid grid-padding" id="about">
-    <div class="ui-parallax left" id="pushLeft">
-      <h3 class="tagline t-h5">Straight lines, solid posts, honest pricing</h3>
-    </div>
-    <div class="right">
-      <p class="t-h4">We install and repair wood, vinyl, aluminum and chain-link fences and gates for homes and businesses. Every quote is upfront, we have underground utilities marked before we dig, and we text you before every visit so you always know when to expect us.</p>
-      <a href="#quote" class="ui-button t-h5" data-btn data-quote>Get a Quote</a>
-    </div>
-  </section>
 
 </div>
 
@@ -656,6 +742,9 @@ a.ui-pill,button.ui-pill{transition:color .3s var(--ease-soft),background-color 
 </div>
 
 <!-- ============ FOOTER ============ -->
+
+  <!-- REPLACE: real questions, prices and cities -->
+  <section class="faq-areas" id="faq"><div class="cols"><div><h2>Questions, answered</h2><details><summary>How long does a fence install take?</summary><p>Most residential fences take one to three days once materials arrive.</p></details><details><summary>Do I need a permit?</summary><p>Rules vary by city. We tell you what is needed for your address and handle the paperwork where we can.</p></details><details><summary>Do you mark utilities and property lines?</summary><p>We call for utility marking before digging. Please share your survey if you have one, so the fence lands on the right line.</p></details><details><summary>Do you remove my old fence?</summary><p>Yes. We remove and haul away the old fence for [price details].</p></details></div><div id="areas"><h2>Areas we serve</h2><ul class="chips"><li>[City 1]</li><li>[City 2]</li><li>[City 3]</li><li>[City 4]</li><li>[City 5]</li><li>[City 6]</li></ul><a class="area-link" href="#quote" data-quote="areas">Not sure we cover you? Check your address</a></div></div></section>
 <footer id="footer" class="app-footer">
   <div class="inner">
     <div class="top">
@@ -673,7 +762,6 @@ a.ui-pill,button.ui-pill{transition:color .3s var(--ease-soft),background-color 
       <div class="side">
         <div class="links">
           <ul>
-            <li><a href="#about" class="t-h5 ui-link">About Us</a></li>
             <li><a href="#quote" data-quote="areas" class="t-h5 ui-link">Service Areas</a></li>
             <li><a href="#quote" data-quote class="t-h5 ui-link">Contact</a></li>
             <li><a href="#privacy" class="t-h5 ui-link" data-info="privacy">Privacy</a></li>
@@ -758,7 +846,7 @@ a.ui-pill,button.ui-pill{transition:color .3s var(--ease-soft),background-color 
     const ref = PHOTOS[seed.replace(/-t$/, '')];
     if (!ref) return procedural(seed, w, h);
     const [src, pid] = ref.split(':');
-    return `images/fence-${src}-${pid.split('-')[0]}-${w >= 900 ? 'lg' : 'sm'}.jpg`;
+    return `images/fence-${src}-${pid.split('-')[0]}-${w >= 900 ? 'lg' : 'sm'}.webp`;
   };
   /* neutral fallback if a photo id is ever missing */
   const procedural = (seed, w, h) => {
@@ -948,10 +1036,18 @@ a.ui-pill,button.ui-pill{transition:color .3s var(--ease-soft),background-color 
   });
 
   /* hover pill that follows the cursor inside a media box */
+  const lastMouse = { x: null, y: null };
+  addEventListener('mousemove', e => { lastMouse.x = e.clientX; lastMouse.y = e.clientY; }, { passive: true });
   function followPill(host, zone, fixed) {
     const line = $('.line', zone);
     host.addEventListener('mouseenter', () => zone.classList.add('-hover'));
     host.addEventListener('mouseleave', () => zone.classList.remove('-hover'));
+    // scrolling moves the box out from under a still mouse without firing mouseleave, so re-check on scroll
+    addEventListener('scroll', () => {
+      if (!zone.classList.contains('-hover') || lastMouse.x == null) return;
+      const el = document.elementFromPoint(lastMouse.x, lastMouse.y);
+      if (!el || !host.contains(el)) zone.classList.remove('-hover');
+    }, { passive: true });
     host.addEventListener('mousemove', e => {
       const r = fixed ? { left: 0, top: 0 } : host.getBoundingClientRect();
       const x = e.clientX - r.left, y = e.clientY - r.top;
@@ -972,7 +1068,7 @@ a.ui-pill,button.ui-pill{transition:color .3s var(--ease-soft),background-color 
   $('#videoClose').addEventListener('click', closeModal);
   addEventListener('keydown', e => e.key === 'Escape' && closeModal());
   const reel = $('#reelVideo');
-  new IntersectionObserver(([e]) => e.isIntersecting ? reel.play().catch(() => {}) : reel.pause(), { threshold: .2 }).observe(reel);
+  if (!matchMedia('(max-width:767px)').matches && !(navigator.connection && navigator.connection.saveData)) new IntersectionObserver(([e]) => e.isIntersecting ? reel.play().catch(() => {}) : reel.pause(), { threshold: .2 }).observe(reel);
 
   /* ---------- big type dice images ---------- */
   const diceSets = [['fc-d1', 'fc-d2', 'fc-d3'], ['fc-d4', 'fc-d5', 'fc-d6']];
@@ -1042,8 +1138,10 @@ a.ui-pill,button.ui-pill{transition:color .3s var(--ease-soft),background-color 
     });
     const vr = vidMedia.getBoundingClientRect();
     vidMedia.style.setProperty('--py', (clamp((vh - vr.top) / (vh + vr.height), 0, 1) * 2 - 1).toFixed(3));
-    const pr = pushLeft.getBoundingClientRect();
-    pushLeft.style.setProperty('--px', (1 - clamp((vh - pr.top) / (vh + pr.height), 0, 1) * 2).toFixed(3));
+    if (pushLeft) {
+      const pr = pushLeft.getBoundingClientRect();
+      pushLeft.style.setProperty('--px', (1 - clamp((vh - pr.top) / (vh + pr.height), 0, 1) * 2).toFixed(3));
+    }
   }
   addEventListener('scroll', onScroll, { passive: true }); addEventListener('resize', onScroll); onScroll();
 
@@ -1223,19 +1321,69 @@ a.ui-pill,button.ui-pill{transition:color .3s var(--ease-soft),background-color 
 
   /* ---------- intro sequence ---------- */
   const intro = $('#intro'), root = document.documentElement;
+  let fast = reduced; try { if (sessionStorage.getItem('introSeen')) fast = true; sessionStorage.setItem('introSeen', '1'); } catch (e) {}
   document.documentElement.classList.add('-no-scroll');
   const letters = [...$('#introWord').textContent];
   $('#introWord').innerHTML = letters.map(l => `<span>${l}</span>`).join('');
   const spans = $$('#introWord span').sort(() => Math.random() - .5);
-  spans.forEach((s, i) => s.style.transition = `opacity .01s linear ${i * 70}ms`);
+  spans.forEach((s, i) => s.style.transition = `opacity .01s linear ${i * 35}ms`);
   requestAnimationFrame(() => intro.classList.add('-letters'));
-  const letterTime = reduced ? 0 : spans.length * 70 + 450;
+  const letterTime = fast ? 0 : spans.length * 35 + 250;
   setTimeout(() => {
     intro.classList.add('-out');
     renderHero();
-    setTimeout(() => { root.classList.add('is-ready'); root.classList.remove('-no-scroll'); }, reduced ? 0 : 500);
-    setTimeout(() => intro.classList.add('-gone'), reduced ? 0 : 1100);
+    setTimeout(() => { root.classList.add('is-ready'); root.classList.remove('-no-scroll'); }, fast ? 0 : 250);
+    setTimeout(() => intro.classList.add('-gone'), fast ? 0 : 600);
   }, letterTime);
+})();
+</script>
+
+<nav class="mbar" aria-label="Quick contact"><a class="m-call" href="tel:+15555550180">Call now</a><a class="m-quote" href="#quote" data-quote>Free quote</a></nav>
+
+<script>/* manifest-fit */
+(function(){
+  var el=document.getElementById('manifestText'); if(!el) return;
+  var f0=null,H0=null;
+  function fit(){
+    el.style.fontSize='';el.style.paddingBottom='';
+    if(innerWidth<1024) return;                       /* phones and tablets keep the original size */
+    var cs=getComputedStyle(el), f=parseFloat(cs.fontSize), pt=parseFloat(cs.paddingTop);
+    var H=el.offsetHeight;
+    var rows={};
+    el.querySelectorAll('.split-text').forEach(function(s){var r=s.getBoundingClientRect();var k=Math.round(r.top/10);rows[k]=rows[k]||{l:1e9,r:-1e9};rows[k].l=Math.min(rows[k].l,r.left);rows[k].r=Math.max(rows[k].r,r.right)});
+    var ks=Object.keys(rows); if(!ks.length) return;
+    var w0=Math.max.apply(null,ks.map(function(k){return rows[k].r-rows[k].l}));
+    var avail=el.clientWidth-parseFloat(cs.paddingLeft)-parseFloat(cs.paddingRight);
+    var k=Math.min(avail/w0*0.97,1.9); if(k<=1) return;
+    var nf=f*k; el.style.fontSize=nf+'px';
+    var contentH=ks.length*nf*0.87;
+  }
+  var t; function later(){clearTimeout(t);t=setTimeout(fit,80)}
+  addEventListener('resize',later);
+  if(document.fonts&&document.fonts.ready) document.fonts.ready.then(later); else addEventListener('load',later);
+  setTimeout(fit,400);
+})();
+</script>
+
+<script>/* bigtype-fit */
+(function(){
+  var sec=document.getElementById('bigtype'); if(!sec) return;
+  var el=sec.querySelector('.inner'); if(!el) return;
+  function fit(){
+    el.style.fontSize='';
+    if(innerWidth<768) return;
+    var f=parseFloat(getComputedStyle(el).fontSize), rows={};
+    el.querySelectorAll('.line').forEach(function(l){var r=l.getBoundingClientRect();var k=Math.round(r.top/8);rows[k]=rows[k]||{l:1e9,r:-1e9};rows[k].l=Math.min(rows[k].l,r.left);rows[k].r=Math.max(rows[k].r,r.right)});
+    var ks=Object.keys(rows); if(!ks.length) return;
+    var w0=Math.max.apply(null,ks.map(function(k){return rows[k].r-rows[k].l}));
+    var avail=el.clientWidth*0.96;
+    var nf=Math.min(f*avail/w0, innerHeight*0.30);
+    if(nf>0) el.style.fontSize=nf+'px';
+  }
+  var t; function later(){clearTimeout(t);t=setTimeout(fit,80)}
+  addEventListener('resize',later);
+  if(document.fonts&&document.fonts.ready) document.fonts.ready.then(later); else addEventListener('load',later);
+  setTimeout(fit,400);
 })();
 </script>
 <script>window.CF_BRAND={"full": "Postline Fence Co.", "short": "Postline", "phones": ["(555) 555-0180"]};</script><script src="/demos/personalize-brand.js"></script></body>
