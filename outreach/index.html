@@ -1137,11 +1137,12 @@ html.intro-on .badge,html.intro-on .hero h1 em,html.intro-on .hero__sub,html.int
      Set GC_CODE to your GoatCounter site code (the part before .goatcounter.com). Blank = tracking off.
      Each lead gets its own row, e.g. /outreach/rivertown-plumbing, so you can see who opened their link. */
   var GC_CODE='coldfrontstudios';
+  var slug=(biz||'no-name').toLowerCase().replace(/[^a-z0-9]+/g,'-').replace(/^-|-$/g,'').slice(0,60)||'no-name';
+  /* GoatCounter groups events by their path, so the lead's slug goes in the path: one row per lead per action */
   function track(name){
-    try{if(window.goatcounter&&window.goatcounter.count)window.goatcounter.count({path:name,title:biz||'(no name)',event:true})}catch(e){}
+    try{if(window.goatcounter&&window.goatcounter.count)window.goatcounter.count({path:name+'/'+slug,title:biz||'(no name)',event:true})}catch(e){}
   }
   if(GC_CODE){
-    var slug=(biz||'no-name').toLowerCase().replace(/[^a-z0-9]+/g,'-').replace(/^-|-$/g,'').slice(0,60)||'no-name';
     window.goatcounter={no_onload:true,allow_local:false};
     var gs=document.createElement('script');gs.async=true;gs.src='https://gc.zgo.at/count.js';
     gs.setAttribute('data-goatcounter','https://'+GC_CODE+'.goatcounter.com/count');
