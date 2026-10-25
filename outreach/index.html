@@ -577,7 +577,7 @@ html.intro-on .badge,html.intro-on .hero h1 em,html.intro-on .hero__sub,html.int
 <a class="skip-link" href="#top">Skip to content</a>
 
 <div class="announce" id="announce" role="region" aria-label="Offer">
-  <span id="annText"><b>Your demo is ready.</b> We built a free website sample for your business.</span>
+  <span id="annText"><b>Made for your business.</b> A free sample website is included.</span>
   <button class="announce__x" id="announceX" aria-label="Dismiss"><svg width="12" height="12" viewBox="0 0 12 12" stroke="currentColor" stroke-width="1.4"><path d="M1 1l10 10M11 1L1 11"/></svg></button>
 </div>
 
@@ -587,7 +587,7 @@ html.intro-on .badge,html.intro-on .hero h1 em,html.intro-on .hero__sub,html.int
     ColdFront Studio
   </a>
   <nav class="nav__links" aria-label="Primary">
-    <a href="#top">Your demo</a><a href="#vid">Watch it</a><a href="#demo">How it texts back</a><a href="#math">The math</a><a href="#pricing">Pricing</a><a href="#faq">FAQ</a>
+    <a href="#top">Home</a><a href="#vid">Watch it</a><a href="#demo">How it texts back</a><a href="#math">The math</a><a href="#pricing">Pricing</a><a href="#faq">FAQ</a>
   </nav>
   <div class="nav__right">
     <a href="tel:+17068082127" class="phone-link">(706) 808-2127</a>
@@ -599,7 +599,7 @@ html.intro-on .badge,html.intro-on .hero h1 em,html.intro-on .hero__sub,html.int
 
 <div class="menu" id="menu" aria-hidden="true" inert>
   <ul>
-    <li><a href="#top">Your demo</a></li>
+    <li><a href="#top">Home</a></li>
     <li><a href="#vid">Watch it</a></li>
     <li><a href="#demo">How it texts back</a></li>
     <li><a href="#math">The math</a></li>
@@ -615,13 +615,13 @@ html.intro-on .badge,html.intro-on .hero h1 em,html.intro-on .hero__sub,html.int
 <section class="hero" id="hero" data-nav="dark">
   <div class="hero__bg" aria-hidden="true"><div class="rings"><i></i><i></i><i></i><i></i></div></div>
   <div class="hero__copy">
-    <div class="badge"><i></i><span id="heroBadge">A website built for you &nbsp;·&nbsp; Free to view</span></div>
-    <h1 class="h-xl" id="heroH1"><span><em id="heroL1">We'll build you</em></span><span class="name"><em id="heroName">a site like this</em></span></h1>
-    <p class="hero__sub" id="heroSub">With your name, logo and photos, plus an AI that texts back every missed call so the job doesn't go to someone else.</p>
+    <div class="badge"><i></i><span id="heroBadge">AI picks up when you can't</span></div>
+    <h1 class="h-xl" id="heroH1"><span><em id="heroL1">Stop losing jobs</em></span><span class="name"><em id="heroName">to missed calls</em></span></h1>
+    <p class="hero__sub" id="heroSub">When you can't pick up, the caller gets a text back in seconds, so the job doesn't go to the next company. We'll also build you a free website like the ones below.</p>
     <p class="hero__tag"><b>The website is the free sample.</b> The text-back is what pays for itself.</p>
     <div class="hero__cta">
       <a class="btn btn--white" id="demoBtn" href="#mockup">Get free mockup</a>
-      <a class="btn btn--ghost" href="#pricing">See pricing</a>
+      <a class="btn btn--ghost" href="#pricing" id="heroSecond">See pricing</a>
     </div>
     <p class="hero__note" id="heroNote">Free sample. No credit card, no sign-up.</p>
   </div>
@@ -632,19 +632,6 @@ html.intro-on .badge,html.intro-on .hero h1 em,html.intro-on .hero__sub,html.int
     </div>
     <p class="vid__cap">A walkthrough using an HVAC business as the example. It works the same way for every trade. About 2 minutes, tap play.</p>
   </div>
-</section>
-
-<!-- YOUR DEMO: the lead's design first, then the other two, in an auto-advancing strip -->
-<section class="yd" id="yourdemo" data-nav="light" hidden>
-  <div class="yd__head">
-    <div>
-      <h2 class="h-lg rv" id="ydH">Here is the website we built for you.</h2>
-      <p class="yd__sub rv d1">Three designs, each with your name on it. They drift past on their own. Click any one to open it.</p>
-    </div>
-    <a class="btn btn--black rv d1" id="ydBtn" href="#" target="_blank" rel="noopener">See all 3 designs</a>
-  </div>
-  <div class="yd__stage" id="ydStage" role="group" aria-label="Three website designs for your business"></div>
-  <p class="yd__note">Live previews. Click any design to open the full site in a new tab.</p>
 </section>
 
 <!-- TEXT-BACK DEMO (personalized with the lead's business + trade) -->
@@ -669,6 +656,19 @@ html.intro-on .badge,html.intro-on .hero h1 em,html.intro-on .hero__sub,html.int
       <p class="sim">Sample conversation. Call the demo number to try the real thing.</p>
     </div>
   </div>
+</section>
+
+<!-- YOUR DEMO: the lead's design first, then the other two, in an auto-advancing strip -->
+<section class="yd" id="yourdemo" data-nav="light" hidden>
+  <div class="yd__head">
+    <div>
+      <h2 class="h-lg rv" id="ydH">And the free website we built for you.</h2>
+      <p class="yd__sub rv d1">Three designs, each with your name on it. They drift past on their own. Click any one to open it.</p>
+    </div>
+    <a class="btn btn--black rv d1" id="ydBtn" href="#" target="_blank" rel="noopener">See all 3 designs</a>
+  </div>
+  <div class="yd__stage" id="ydStage" role="group" aria-label="Three website designs for your business"></div>
+  <p class="yd__note">Live previews. Click any design to open the full site in a new tab.</p>
 </section>
 
 <!-- THE MATH -->
@@ -861,17 +861,15 @@ html.intro-on .badge,html.intro-on .hero h1 em,html.intro-on .hero__sub,html.int
   /* ===== fill hero (textContent only: nothing from the URL is ever parsed as HTML) ===== */
   var place=[city,state].filter(Boolean).join(', ');
   if(biz){
-    $('#heroL1').textContent='We built this for';
-    $('#heroName').textContent=biz;
-    if(biz.length>22)$('#heroH1').classList.add('is-long');
-    $('#heroBadge').textContent='Made for '+biz+(place?' \u00b7 '+place:'');
-    $('#heroSub').textContent='Here is the website we put together for you, and how we would keep missed calls from turning into lost jobs.';
+    $('#heroBadge').textContent='AI picks up when you can\'t \u00b7 '+biz+(place?' \u00b7 '+place:'');
+    $('#heroSub').textContent='When a call to '+biz+' goes unanswered, the caller gets a text back in seconds, so the job doesn\'t go to the next company. We also built you a free website. It is further down.';
     document.title='A free website demo for '+biz+' | ColdFront Studio';
-    $('#annText').innerHTML='<b>Your demo is ready.</b> We built a free website sample for your business.';
+    $('#annText').innerHTML='<b>Made for your business.</b> A free sample website is included.';
   }
   if(demoUrl){
-    var btn=$('#demoBtn');btn.href=designsHref(ownN);btn.target='_blank';btn.rel='noopener';btn.textContent='See your 3 designs';
-    $('#heroNote').textContent='Opens in a new tab. Free to look around, nothing to sign up for.';
+    var btn=$('#demoBtn');btn.href='#demo';btn.textContent='See how it works';
+    var second=$('#heroSecond');second.href='#yourdemo';second.textContent='See your free website';
+    $('#heroNote').textContent='The sample website is free. No credit card, no sign-up.';
     var mb=$('#mbarCta');mb.href=designsHref(ownN);mb.target='_blank';mb.rel='noopener';mb.textContent='See your designs';
     /* strip of the three designs: the lead's own first, then the other two (all personalized) */
     var ALT={'hvac-clone':['hvac','hvac.html'],'plumbing-clone':['plumbing','plumbing.html'],'electric-clone':['electrical','electrician.html'],'locksmith-clone':['locksmith','locksmith.html'],'restoration-clone':['restoration','water-damage-restoration.html'],'roofing-clone':['roofing','roofing.html'],'appliance-clone':['appliance','appliance-repair.html']};
@@ -889,7 +887,7 @@ html.intro-on .badge,html.intro-on .hero h1 em,html.intro-on .hero__sub,html.int
     var order=[own].concat([1,2,3].filter(function(n){return n!==own}));
     var yd=$('#yourdemo'),stage=$('#ydStage');
     yd.hidden=false;
-    $('#ydH').textContent=biz?'Here is the website we built for '+biz+'.':'Here is a sample website we built for a business like yours.';
+    $('#ydH').textContent=biz?'And the free website we built for '+biz+'.':'And a free sample website, like the one we would build for you.';
     $('#ydBtn').href=designsHref(own);
     function calm(fr){try{var d=fr.contentDocument;if(!d)return;d.querySelectorAll('video').forEach(function(v){v.pause();v.removeAttribute('autoplay');v.autoplay=false;v.preload='none'})}catch(e){}}
 
