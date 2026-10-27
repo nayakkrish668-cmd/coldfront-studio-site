@@ -47,6 +47,10 @@ textarea{width:100%;margin-top:12px;min-height:96px;border-radius:6px;border:1px
     <button type="submit">Unsubscribe me</button>
   </form>
 
+  <div class="done" id="doneOk" role="status" aria-live="polite">
+    <b>You're unsubscribed.</b>
+    We won't email this address again. Nothing else to do.
+  </div>
   <div class="done" id="done" role="status" aria-live="polite">
     <b>One last step: send the email that opens.</b>
     Your email app should have opened with your request filled in. Press send and we will remove you within 10 business days, usually much sooner.
@@ -61,6 +65,7 @@ textarea{width:100%;margin-top:12px;min-height:96px;border-radius:6px;border:1px
 (function(){
   /* The address that receives opt-outs. Make sure this inbox is checked at least every few business days. */
   var OPT_OUT_EMAIL='hello.coldfrontstudio@gmail.com';
+  var OPT_OUT_ENDPOINT='https://coldfront-missed-call-ai.onrender.com/email-unsubscribe';
   var $=function(s){return document.querySelector(s)};
   var emailInput=$('#email'),err=$('#err'),done=$('#done');
 
@@ -72,12 +77,21 @@ textarea{width:100%;margin-top:12px;min-height:96px;border-radius:6px;border:1px
     var v=emailInput.value.trim();
     if(!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(v)){err.textContent='Enter a valid email address.';emailInput.setAttribute('aria-invalid','true');emailInput.focus();return}
     err.textContent='';emailInput.removeAttribute('aria-invalid');
+    /* Record the opt-out directly; the email app is only a fallback if that fails. */
+    var btn=$('#f').querySelector('button[type=submit]');if(btn)btn.disabled=true;
+    var fd=new FormData();fd.append('email',v);
+    fetch(OPT_OUT_ENDPOINT,{method:'POST',body:fd}).then(function(r){
+      if(!r.ok)throw new Error('failed');
+      $('#f').style.display='none';$('#doneOk').classList.add('show');
+    }).catch(function(){viaEmail(v)}).then(function(){if(btn)btn.disabled=false});
+  });
+  function viaEmail(v){
     var subject='Unsubscribe',body='Please remove this address from all ColdFront Studio emails and do not contact it again:\n\n'+v+'\n';
     $('#copy').value='To: '+OPT_OUT_EMAIL+'\nSubject: '+subject+'\n\n'+body;
     var a=$('#addr');a.textContent=OPT_OUT_EMAIL;a.href='mailto:'+OPT_OUT_EMAIL;
     done.classList.add('show');
     window.location.href='mailto:'+OPT_OUT_EMAIL+'?subject='+encodeURIComponent(subject)+'&body='+encodeURIComponent(body);
-  });
+  }
 })();
 </script>
 </body>
